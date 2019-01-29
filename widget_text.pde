@@ -10,7 +10,7 @@ class TextScreenWidget extends ScreenWidget {
   }
   
   boolean drawPixel(int x, int y, boolean prevState) {
-    int width = textSymbols.getWidth();
+    int width = textSymbols.getBaseWidth();
     int charIndex = floor((x - baseX) / (width + 1));
     if (charIndex < 0 || charIndex >= this.text.length()) {
       return prevState;

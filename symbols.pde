@@ -1,16 +1,25 @@
 public class SymbolSet {
-  private int width;
+  private int baseWidth;
   private int height;
   private HashMap<String, int[]> symbols;
+  private HashMap<String, Integer> symbolsWidth;
   
   SymbolSet(int width, int height) {
-    this.width = width;
+    this.baseWidth = width;
     this.height = height;
     symbols = new HashMap<String, int[]>();
+    symbolsWidth = new HashMap<String, Integer>();
   }
   
-  public int getWidth() {
-    return width;
+  public int getSymbolWidth(String key) {
+    if (!symbolsWidth.containsKey(key)) {
+      return baseWidth;
+    }
+    return symbolsWidth.get(key);
+  }
+  
+  public int getBaseWidth() {
+    return baseWidth;
   }
   
   public int getHeight() {
@@ -18,14 +27,20 @@ public class SymbolSet {
   }
   
   public void put(String key, int[] symbol) {
+    this.put(key, symbol, baseWidth);
+  }
+  
+  public void put(String key, int[] symbol, int width) {
     if (symbol.length != width * height) {
       println("Invalid symbol size for: " + key);
       return;
     }
     symbols.put(key, symbol);
+    symbolsWidth.put(key, width);
   }
   
   public int getSymbolValue(String key, int col, int row) {
+    int width = getSymbolWidth(key);
     if (col < 0 || col >= width || row < 0 || row >= height) {
       return 0;
     }

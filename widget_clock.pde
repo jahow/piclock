@@ -7,7 +7,7 @@ class ClockScreenWidget extends ScreenWidget {
     int startY = 4;
     int left = hour();
     int right = minute();
-    int width = clockSymbols.getWidth();
+    int width = clockSymbols.getBaseWidth();
     int value = clockSymbols.getSymbolValue(str(floor(left / 10)), x - startX, y - startY) +
       clockSymbols.getSymbolValue(str(left % 10), x - startX - width - 1, y - startY) +
       clockSymbols.getSymbolValue(second() % 2 == 0 ? "up" : "down", x - startX - 2 * width - 1, y - startY) +
