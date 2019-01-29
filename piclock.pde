@@ -11,7 +11,7 @@ void setup()
   screen.init();
   screen.addWidget(new ClockScreenWidget());
   screen.addWidget(new TextScreenWidget("AMQPZW BCDEF", 1, 16));
-  screen.addWidget(new TextScreenWidget("0123456789", 1, 22));
+  screen.addWidget(new TextScreenWidget("0123456789", 1, 25));
   screen.addWidget(new PointerScreenWidget());
 }
 
