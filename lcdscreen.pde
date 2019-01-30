@@ -2,8 +2,8 @@ final int GUTTER = 2;
 final int PIXEL_SIZE = 8;
 
 class LcdScreen {
-  final int screenWidth = floor((SCREEN_WIDTH - GUTTER) / (GUTTER + PIXEL_SIZE));
-  final int screenHeight = floor((SCREEN_HEIGHT - GUTTER) / (GUTTER + PIXEL_SIZE));
+  final int screenWidth = getPixelCountX();
+  final int screenHeight = getPixelCountY();
   final float[] screenState = new float[screenWidth * screenHeight];
   final boolean[] screenStateCommand = new boolean[screenWidth * screenHeight];
   ArrayList<ScreenWidget> widgets = new ArrayList<ScreenWidget>();

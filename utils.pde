@@ -8,3 +8,11 @@ int[] getScreenCoords(int pixelX, int pixelY) {
   tempCoords[1] = shiftY + pixelY * (GUTTER + PIXEL_SIZE) + GUTTER + PIXEL_SIZE / 2;
   return tempCoords;
 }
+
+int getPixelCountX() {
+  return floor((SCREEN_WIDTH - GUTTER) / (GUTTER + PIXEL_SIZE));
+}
+
+int getPixelCountY() {
+  return floor((SCREEN_HEIGHT - GUTTER) / (GUTTER + PIXEL_SIZE));
+}

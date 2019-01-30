@@ -1,11 +1,13 @@
-class TextScreenWidget extends ScreenWidget {
+class TextScreenWidget extends ScreenWidget {  
   private String text;
   private int baseX;
   private int baseY;
   private int[] charOffsets;
+  private int startTime = millis();
   
   public TextScreenWidget(String text, int x, int y) {
-    this.text = text;
+    this.text = text.toUpperCase();
+    
     baseX = x;
     baseY = y;
     charOffsets = new int[text.length() + 1];
@@ -13,15 +15,22 @@ class TextScreenWidget extends ScreenWidget {
     int gutter = 1;
     for (int i = 0; i < text.length(); i++) {
       charOffsets[i] = offset;
-      offset += textSymbols.getSymbolWidth(text.substring(i, i + 1)) + gutter; 
+      offset += textSymbols.getSymbolWidth(this.text.substring(i, i + 1)) + gutter; 
     }
-    charOffsets[text.length()] = offset;
+    charOffsets[text.length()] = offset - gutter;
+  }
+  
+  int getTotalWidth() {
+    return charOffsets[charOffsets.length - 1];
   }
   
   boolean drawPixel(int x, int y, boolean prevState) {
+    int overflowX = max(0, baseX + this.getTotalWidth() - getPixelCountX());
+    int shiftedX = overflowX > 0 ? x + floor((millis() - startTime) / 500) % overflowX : x;
+    
     int charIndex = -1;
     for (int i = 0; i < text.length(); i++) {
-      if (x - baseX >= charOffsets[i] && x - baseX < charOffsets[i + 1]) {
+      if (shiftedX - baseX >= charOffsets[i] && shiftedX - baseX < charOffsets[i + 1]) {
         charIndex = i;
       }
     }
@@ -31,7 +40,7 @@ class TextScreenWidget extends ScreenWidget {
     }
     
     int offsetX = baseX + charOffsets[charIndex];
-    int value = textSymbols.getSymbolValue(this.text.substring(charIndex, charIndex + 1), x - offsetX, y - baseY);
+    int value = textSymbols.getSymbolValue(this.text.substring(charIndex, charIndex + 1), shiftedX - offsetX, y - baseY);
     
     return value > 0 ? true : prevState;
   }
