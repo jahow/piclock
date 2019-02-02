@@ -1,5 +1,5 @@
 final int GUTTER = 2;
-final int PIXEL_SIZE = 8;
+final int PIXEL_SIZE = 6;
 final int GLOW_RADIUS = 4;
 final float GLOW_RATIO = 0.17;
 
@@ -11,6 +11,7 @@ class LcdScreen {
   ArrayList<ScreenWidget> widgets = new ArrayList<ScreenWidget>();
   
   LcdScreen() {
+    println("screen is " + screenWidth + "x" + screenHeight + " px");
   }
   
   void init() {

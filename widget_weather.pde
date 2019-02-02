@@ -1,5 +1,5 @@
-class PointerScreenWidget extends ScreenWidget {
-  public PointerScreenWidget() {
+class WeatherScreenWidget extends ScreenWidget {
+  public WeatherScreenWidget() {
   }
   
   boolean drawPixel(int x, int y, boolean prevState) {
@@ -9,10 +9,6 @@ class PointerScreenWidget extends ScreenWidget {
       Math.abs(coords[1] - mouseY) <= radius) {
       return true;
     }
-    
-    //if (x == getPixelCountX() / 2 || y == getPixelCountY() / 2) {
-    //  return true;
-    //}
     
     return prevState;
   }
