@@ -1,7 +1,7 @@
 final int GUTTER = 2;
 final int PIXEL_SIZE = 8;
 final int GLOW_RADIUS = 4;
-final float GLOW_RATIO = 0.25;
+final float GLOW_RATIO = 0.17;
 
 class LcdScreen {
   final int screenWidth = getPixelCountX();
@@ -54,7 +54,7 @@ class LcdScreen {
     
     // draw pixels with glow
     int[] coords;
-    float radius, state, stateGlow;
+    float radius, state, stateGlow, xGlow, yGlow;
     noStroke();
     rectMode(RADIUS);
     for (i = 0; i < screenState.length; i++) {
@@ -62,19 +62,16 @@ class LcdScreen {
       y = floor(i / screenWidth);
       coords = getScreenCoords(x, y);
       state = screenState[i];
-      radius = PIXEL_SIZE * 0.5 + 0.5 * sin(state * PI) + 0.4 * state;
+      radius = PIXEL_SIZE * 0.5 + 0.5 * sin(state * PI) + 0.5 * state;
       
       for(j = max(0, x - GLOW_RADIUS); j <= min(screenWidth - 1, x + GLOW_RADIUS); j++) {
         for(k = max(0, y - GLOW_RADIUS); k <= min(screenHeight - 1, y + GLOW_RADIUS); k++) {
           stateGlow = screenState[j + k * screenWidth];
-          if (screenStateCommand[j + k * screenWidth]) {
-            state = max(state,
-              min(
-                stateGlow * GLOW_RATIO * (1 - pow(abs(j - x) * 1.0) / GLOW_RADIUS, 2),
-                stateGlow * GLOW_RATIO * (1 - ow(abs(k - y) * 1.0) / GLOW_RADIUS, 2)
-              )
-            );
-          }
+          xGlow = pow(abs(j - x) * 1.0 / GLOW_RADIUS, 2);
+          yGlow = pow(abs(k - y) * 1.0 / GLOW_RADIUS, 2);
+          state = max(state,
+            stateGlow * GLOW_RATIO * (1 - sqrt(xGlow * xGlow + yGlow * yGlow))
+          );
         }  
       }
       
