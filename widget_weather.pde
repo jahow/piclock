@@ -1,15 +1,20 @@
+// TODO: do a request like this:
+// https://api.openweathermap.org/data/2.5/forecast?q=sonnaz&appid=a48634ed18dac4fc58477ba9a2e9442c
+
 class WeatherScreenWidget extends ScreenWidget {
-  public WeatherScreenWidget() {
+  int baseX;
+  int baseY;
+  private String icon;
+  
+  public WeatherScreenWidget(String icon, int x, int y) {
+    baseX = x;
+    baseY = y;
+    this.icon = icon;
   }
   
   boolean drawPixel(int x, int y, boolean prevState) {
-    int[] coords = getScreenCoords(x, y);
-    float radius = (PIXEL_SIZE + GUTTER) * 0.5;
-    if (Math.abs(coords[0] - mouseX) <= radius &&
-      Math.abs(coords[1] - mouseY) <= radius) {
-      return true;
-    }
+    int value = weatherSymbols.getSymbolValue(this.icon, x - baseX, y - baseY);
     
-    return prevState;
+    return value > 0 ? true : prevState;
   }
 }
