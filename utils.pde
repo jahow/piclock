@@ -51,3 +51,14 @@ int getTextSymbolValue(String text, int x, int y) {
   int offsetX = offsets[charIndex];
   return textSymbols.getSymbolValue(upperText.substring(charIndex, charIndex + 1), x - offsetX, y);
 }
+
+String pad(String text, int length) {
+  return pad(text, length, "0");
+}
+String pad(String text, int length, String padChar) {
+  String result = text;
+  while (result.length() < length) {
+    result = padChar + result;
+  }
+  return result;
+}

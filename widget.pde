@@ -6,6 +6,9 @@ class ScreenWidget {
   public ScreenWidget() {
   }
   
+  void update() {
+  }
+  
   float drawPixel(int x, int y, float prevState) {
     return prevState;
   }

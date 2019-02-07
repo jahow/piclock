@@ -29,8 +29,10 @@ class LcdScreen {
       screenStateCommand[i] = 0.0;
     }
     
-    // draw widgets
+    // update & draw widgets
     for(ScreenWidget widget : widgets) {
+      widget.update();
+      
       for (i = 0; i < screenState.length; i++) {
         x = i % screenWidth;
         y = floor(i / screenWidth);
