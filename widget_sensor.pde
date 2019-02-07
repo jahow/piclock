@@ -4,23 +4,25 @@
 class SensorScreenWidget extends ScreenWidget {
   int baseX;
   int baseY;
-  private int temp;
-  private int hr;
+  private String temp;
+  private String hr;
   
   public SensorScreenWidget(int x, int y) {
     baseX = x;
     baseY = y;
-    
-    temp = 45;
-    hr = 38;
+  }
+  
+  void update() {
+    temp = "-";
+    hr = "-";
   }
   
   float drawPixel(int x, int y, float prevState) {
     int value =
       getTextSymbolValue("t°", x - baseX, y - baseY) +
       getTextSymbolValue("%h", x - baseX - 12, y - baseY) +
-      getTextSymbolValue(str(temp), x - baseX, y - baseY - 7) +
-      getTextSymbolValue(str(hr), x - baseX - 12, y - baseY - 7);
+      getTextSymbolValue(temp, x - baseX, y - baseY - 7) +
+      getTextSymbolValue(hr, x - baseX - 12, y - baseY - 7);
     return value > 0 ? 1.0 : prevState;
   }
 }
