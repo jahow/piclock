@@ -13,9 +13,9 @@ class DateScreenWidget extends ScreenWidget {
     date = "12-02";
   }
   
-  boolean drawPixel(int x, int y, boolean prevState) {
+  float drawPixel(int x, int y, float prevState) {
     int value = getTextSymbolValue(dayName, x - baseX, y - baseY) +
       getTextSymbolValue(date, x - baseX, y - baseY - 7);
-    return value > 0 ? true : prevState;
+    return value > 0 ? 1.0 : prevState;
   }
 }

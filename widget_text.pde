@@ -24,7 +24,7 @@ class TextScreenWidget extends ScreenWidget {
     return charOffsets[charOffsets.length - 1];
   }
   
-  boolean drawPixel(int x, int y, boolean prevState) {
+  float drawPixel(int x, int y, float prevState) {
     int overflowX = max(0, baseX + this.getTotalWidth() - getPixelCountX());
     int shiftedX = overflowX > 0 ? x + floor((millis() - startTime) / 500) % overflowX : x;
     
@@ -42,6 +42,6 @@ class TextScreenWidget extends ScreenWidget {
     int offsetX = baseX + charOffsets[charIndex];
     int value = textSymbols.getSymbolValue(this.text.substring(charIndex, charIndex + 1), shiftedX - offsetX, y - baseY);
     
-    return value > 0 ? true : prevState;
+    return value > 0 ? 1.0 : prevState;
   }
 }

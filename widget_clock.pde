@@ -7,7 +7,7 @@ class ClockScreenWidget extends ScreenWidget {
     baseY = y;
   }
   
-  boolean drawPixel(int x, int y, boolean prevState) {
+  float drawPixel(int x, int y, float prevState) {
     int startX = baseX;
     int startY = baseY;
     int left = hour();
@@ -19,6 +19,6 @@ class ClockScreenWidget extends ScreenWidget {
       clockSymbols.getSymbolValue(str(floor(right / 10)), x - startX - 3 * width - 3, y - startY) +
       clockSymbols.getSymbolValue(str(right % 10), x - startX - 4 * width - 6, y - startY);
     
-    return value > 0 ? true : prevState;
+    return value > 0 ? 1.0 : prevState;
   }
 }

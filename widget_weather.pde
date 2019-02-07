@@ -27,7 +27,7 @@ class WeatherScreenWidget extends ScreenWidget {
     temps[4] = 11;
   }
   
-  boolean drawPixel(int x, int y, boolean prevState) {
+  float drawPixel(int x, int y, float prevState) {
     int shift = 11;
     
     if (y < baseY || x < baseX) {
@@ -51,6 +51,6 @@ class WeatherScreenWidget extends ScreenWidget {
       textSymbols.getSymbolValue(tempChar1, x - baseX - textShiftX, y - baseY - 9) +
       textSymbols.getSymbolValue(tempChar2, x - baseX - textShiftX - 1 - char1Width, y - baseY - 9);
     
-    return value > 0 ? true : prevState;
+    return value > 0 ? 1.0 : prevState;
   }
 }

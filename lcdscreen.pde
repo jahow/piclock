@@ -7,7 +7,7 @@ class LcdScreen {
   final int screenWidth = getPixelCountX();
   final int screenHeight = getPixelCountY();
   final float[] screenState = new float[screenWidth * screenHeight];
-  final boolean[] screenStateCommand = new boolean[screenWidth * screenHeight];
+  final float[] screenStateCommand = new float[screenWidth * screenHeight];
   ArrayList<ScreenWidget> widgets = new ArrayList<ScreenWidget>();
   
   LcdScreen() {
@@ -17,7 +17,7 @@ class LcdScreen {
   void init() {
     for (int i = 0; i < screenState.length; i++) {
       screenState[i] = 0.0;
-      screenStateCommand[i] = false;
+      screenStateCommand[i] = 0.0;
     }
   }
   
@@ -26,7 +26,7 @@ class LcdScreen {
     
     // reset command
     for (i = 0; i < screenState.length; i++) {
-      screenStateCommand[i] = false;
+      screenStateCommand[i] = 0.0;
     }
     
     // draw widgets
@@ -35,21 +35,23 @@ class LcdScreen {
         x = i % screenWidth;
         y = floor(i / screenWidth);
         
-        screenStateCommand[i] = widget.drawPixel(x, y, screenStateCommand[i]);
+        screenStateCommand[i] = widget.drawTransformedPixel(x, y, screenStateCommand[i]);
       }
     }
     
     // update pixels
     noStroke();
     rectMode(RADIUS);
+    float cmd;
     for (i = 0; i < screenState.length; i++) {
       x = i % screenWidth;
       y = floor(i / screenWidth);
+      cmd = screenStateCommand[i];
       
-      if (screenStateCommand[i]) {
-        screenState[i] = 1 - (1 - screenState[i]) * 0.7;
+      if (cmd > screenState[i]) {
+        screenState[i] = cmd - (cmd - screenState[i]) * 0.7;
       } else {
-        screenState[i] *= 0.9;
+        screenState[i] = cmd - (cmd - screenState[i]) * 0.9;
       }
     }
     

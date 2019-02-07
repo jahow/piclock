@@ -15,12 +15,12 @@ class SensorScreenWidget extends ScreenWidget {
     hr = 38;
   }
   
-  boolean drawPixel(int x, int y, boolean prevState) {
+  float drawPixel(int x, int y, float prevState) {
     int value =
       getTextSymbolValue("t°", x - baseX, y - baseY) +
       getTextSymbolValue("%h", x - baseX - 12, y - baseY) +
       getTextSymbolValue(temp + "", x - baseX, y - baseY - 7) +
       getTextSymbolValue(hr + "", x - baseX - 12, y - baseY - 7);
-    return value > 0 ? true : prevState;
+    return value > 0 ? 1.0 : prevState;
   }
 }
