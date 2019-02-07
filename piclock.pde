@@ -32,7 +32,15 @@ void draw()
 {
   background(0);
   
-  float animRatio = 0.5 - 0.5 * cos(millis() * 0.003);
+  //float animRatio = 0.5 - 0.5 * cos(millis() * 0.003);
+  int period = 12000;
+  float slope = 0.0013;
+  int remaining = millis() % period;
+  float animRatio = 0.5 + 0.5 * cos(PI * max(0, min(1,
+    remaining < period / 2 ?
+      -0.25 * slope * period + 0.5 + slope * remaining :
+      0.75 * slope * period + 0.5 - slope * remaining
+  )));
   
   // update widgets
   dateWidget.translate(0, round(-8 * animRatio));
