@@ -1,4 +1,7 @@
 import java.util.Calendar;
+import java.util.TimeZone;
+
+Calendar cal = Calendar.getInstance(TimeZone.getDefault());
 
 // This displays the date
 class DateScreenWidget extends ScreenWidget {
@@ -13,14 +16,14 @@ class DateScreenWidget extends ScreenWidget {
   }
   
   void update() {
-    switch(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
-      case 0: dayName = "dim."; break;
-      case 1: dayName = "lun."; break;
-      case 2: dayName = "mar."; break;
-      case 3: dayName = "mer."; break;
-      case 4: dayName = "jeu."; break;
-      case 5: dayName = "ven."; break;
-      case 6: dayName = "sam."; break;
+    switch(cal.get(Calendar.DAY_OF_WEEK)) {
+      case 1: dayName = "dim."; break;
+      case 2: dayName = "lun."; break;
+      case 3: dayName = "mar."; break;
+      case 4: dayName = "mer."; break;
+      case 5: dayName = "jeu."; break;
+      case 6: dayName = "ven."; break;
+      case 7: dayName = "sam."; break;
     }
     date = pad(str(day()), 2) + "-" + pad(str(month()), 2);
   }
