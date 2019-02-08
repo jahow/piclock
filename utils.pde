@@ -18,11 +18,7 @@ int getPixelCountY() {
 }
 
 final HashMap<String, int[]> offsetsMap = new HashMap<String, int[]>();
-int getTextSymbolValue(String text, int x, int y) {
-  if (y < 0 || y > textSymbols.getHeight()) {
-    return 0;
-  }
-  
+int[] getTextSymbolOffsets(String text) {
   String upperText = text.toUpperCase();
   int[] offsets;
   if (!offsetsMap.containsKey(upperText)) {
@@ -38,6 +34,15 @@ int getTextSymbolValue(String text, int x, int y) {
   } else {
     offsets = offsetsMap.get(upperText);
   }
+  return offsets;
+}
+int getTextSymbolValue(String text, int x, int y) {
+  if (y < 0 || y > textSymbols.getHeight()) {
+    return 0;
+  }
+  
+  String upperText = text.toUpperCase();
+  int[] offsets = getTextSymbolOffsets(text);
   
   int charIndex = -1;
   for (int i = 0; i < upperText.length(); i++) {
@@ -50,6 +55,10 @@ int getTextSymbolValue(String text, int x, int y) {
   
   int offsetX = offsets[charIndex];
   return textSymbols.getSymbolValue(upperText.substring(charIndex, charIndex + 1), x - offsetX, y);
+}
+int getTextSymbolWidth(String text) {
+  int[] offsets = getTextSymbolOffsets(text);
+  return offsets[offsets.length - 1];
 }
 
 String pad(String text, int length) {
