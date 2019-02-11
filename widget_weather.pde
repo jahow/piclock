@@ -40,7 +40,7 @@ class WeatherScreenWidget extends ScreenWidget {
         String desc;
         int temp, j;
         for(int i = 0; i < WEATHER_COUNT; i++) {
-          j = i * 8 + 8 - (5 + floor(hour() / 3.0)) % 8;
+          j = i * 8 + 8 - (5 + floor((hour() - 1) / 3.0)) % 8;
           println(list.getJSONObject(j).getString("dt_txt"));
           desc = list.getJSONObject(j).getJSONArray("weather").getJSONObject(0).getString("icon").substring(0, 2);
           temp = round(list.getJSONObject(j).getJSONObject("main").getFloat("temp") - 273.15);
