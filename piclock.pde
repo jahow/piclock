@@ -8,7 +8,8 @@ ScreenWidget weatherWidget;
 
 void setup() 
 {
-  size(480, 320);
+  fullScreen();
+  noCursor();
   
   initSymbols();
   screen.init();
