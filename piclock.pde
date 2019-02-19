@@ -26,7 +26,14 @@ void setup()
   weatherWidget = new WeatherScreenWidget(3, 21);
   screen.addWidget(weatherWidget);
   
-  screen.addWidget(new PointerScreenWidget());
+  //screen.addWidget(new PointerScreenWidget());
+  screen.addWidget(new ButtonScreenWidget(getPixelCountX() - 4, -1, new Callable() {
+    @Override
+    public String execute() {
+      println("click!");
+      return null;
+    }
+  }, "simple"));
 }
 
 void draw() 
@@ -53,4 +60,10 @@ void draw()
   weatherWidget.setOpacity(animRatio);
   
   screen.draw();
+}
+
+void mousePressed()
+{
+  int[] coords = getPixelCoords(mouseX, mouseY);
+  screen.handleClick(coords[0], coords[1]);
 }

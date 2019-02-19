@@ -25,4 +25,7 @@ class ScreenWidget {
   public void setOpacity(float value) {
     this.opacity = value;
   }
+  
+  public void handleClick(int x, int y) {
+  }
 }

@@ -1,11 +1,17 @@
 final int[] tempCoords = {0, 0};
+final int SHIFTX = 3;
+final int SHIFTY = 3;
 
 // returns the pixel center
 int[] getScreenCoords(int pixelX, int pixelY) {
-  final int shiftX = 3;
-  final int shiftY = 3;
-  tempCoords[0] = shiftX + pixelX * (GUTTER + PIXEL_SIZE) + GUTTER + PIXEL_SIZE / 2;
-  tempCoords[1] = shiftY + pixelY * (GUTTER + PIXEL_SIZE) + GUTTER + PIXEL_SIZE / 2;
+  tempCoords[0] = SHIFTX + pixelX * (GUTTER + PIXEL_SIZE) + GUTTER + PIXEL_SIZE / 2;
+  tempCoords[1] = SHIFTY + pixelY * (GUTTER + PIXEL_SIZE) + GUTTER + PIXEL_SIZE / 2;
+  return tempCoords;
+}
+
+int[] getPixelCoords(int screenX, int screenY) {
+  tempCoords[0] = floor((screenX - SHIFTX) / (GUTTER + PIXEL_SIZE));
+  tempCoords[1] = floor((screenY - SHIFTY) / (GUTTER + PIXEL_SIZE));
   return tempCoords;
 }
 

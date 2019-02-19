@@ -55,6 +55,7 @@ public class SymbolSet {
 SymbolSet clockSymbols;
 SymbolSet textSymbols;
 SymbolSet weatherSymbols;
+SymbolSet buttonSymbols;
 
 void initSymbols() {
   clockSymbols = new SymbolSet(9, 15);
@@ -683,5 +684,28 @@ void initSymbols() {
     0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0,
+  });
+  
+  buttonSymbols = new SymbolSet(5, 5);
+  buttonSymbols.put("simple", new int[] {
+    0, 0, 0, 0, 0,
+    0, 1, 0, 1, 0,
+    0, 0, 0, 0, 0,
+    0, 1, 0, 1, 0,
+    0, 0, 0, 0, 0,
+  });
+  buttonSymbols.put("enabled", new int[] {
+    0, 0, 0, 0, 0,
+    0, 1, 1, 1, 0,
+    0, 1, 1, 1, 0,
+    0, 1, 1, 1, 0,
+    0, 0, 0, 0, 0,
+  });
+  buttonSymbols.put("disabled", new int[] {
+    0, 0, 0, 0, 0,
+    0, 1, 1, 1, 0,
+    0, 1, 0, 1, 0,
+    0, 1, 1, 1, 0,
+    0, 0, 0, 0, 0,
   });
 };
