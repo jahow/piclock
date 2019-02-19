@@ -87,9 +87,21 @@ void draw()
   weatherWidget.setOpacity(animRatio);
   
   currentScreen.draw();
+  
+  if (mousePressed && (millis() - mousePressedStart) > 300 && frameCount % 4 == 0) {
+    doClick();
+  }
 }
 
+int mousePressedStart = 0;
+
 void mousePressed()
+{
+  mousePressedStart = millis();
+  doClick();
+}
+
+void doClick()
 {
   int[] coords = getPixelCoords(mouseX, mouseY);
   currentScreen.handleClick(coords[0], coords[1]);
