@@ -593,6 +593,14 @@ void initSymbols() {
     0, 0,
     0, 0,
   }, 2);
+  textSymbols.put(":", new int[] {
+    0,
+    0,
+    1,
+    0,
+    1,
+    0,
+  }, 1);
   
   weatherSymbols = new SymbolSet(7, 7);
   weatherSymbols.put("clear", new int[] {

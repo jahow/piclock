@@ -1,7 +1,10 @@
 final int SCREEN_WIDTH = 480;
 final int SCREEN_HEIGHT = 320;
 
-LcdScreen screen = new LcdScreen();
+LcdScreen mainScreen = new LcdScreen();
+LcdScreen optionsScreen = new LcdScreen();
+LcdScreen currentScreen = mainScreen;
+
 ScreenWidget dateWidget;
 ScreenWidget sensorWidget;
 ScreenWidget weatherWidget;
@@ -12,28 +15,38 @@ void setup()
   noCursor();
   
   initSymbols();
-  screen.init();
   
-  screen.addWidget(new ClockScreenWidget(4, 4));
+  // MAIN SCREEN
+  mainScreen.init();
+  mainScreen.addWidget(new ClockScreenWidget(4, 4));
   
   // day, temp and hr
   dateWidget = new DateScreenWidget(4, 23);
   sensorWidget = new SensorScreenWidget(34, 23);
-  screen.addWidget(dateWidget);
-  screen.addWidget(sensorWidget);
+  mainScreen.addWidget(dateWidget);
+  mainScreen.addWidget(sensorWidget);
   
   // weather
   weatherWidget = new WeatherScreenWidget(3, 21);
-  screen.addWidget(weatherWidget);
+  mainScreen.addWidget(weatherWidget);
   
   //screen.addWidget(new PointerScreenWidget());
-  screen.addWidget(new ButtonScreenWidget(getPixelCountX() - 4, -1, new Callable() {
+  mainScreen.addWidget(new ButtonScreenWidget(getPixelCountX() - 4, -1, new Callable() {
     @Override
     public String execute() {
-      println("click!");
+      currentScreen = optionsScreen;
       return null;
     }
   }, "simple"));
+  
+  // OPTIONS SCREEN
+  optionsScreen.init();
+  //optionsScreen.addWidget(new TextScreenWidget("options", 1, 1));
+  
+  optionsScreen.addWidget(new TextScreenWidget("07:12", 1, 1));
+  optionsScreen.addWidget(new TextScreenWidget("07:12", 1, 8));
+  optionsScreen.addWidget(new TextScreenWidget("07:12", 1, 15));
+  
 }
 
 void draw() 
@@ -59,11 +72,11 @@ void draw()
   weatherWidget.translate(0, round(8 * (1 - animRatio)));
   weatherWidget.setOpacity(animRatio);
   
-  screen.draw();
+  currentScreen.draw();
 }
 
 void mousePressed()
 {
   int[] coords = getPixelCoords(mouseX, mouseY);
-  screen.handleClick(coords[0], coords[1]);
+  currentScreen.handleClick(coords[0], coords[1]);
 }
