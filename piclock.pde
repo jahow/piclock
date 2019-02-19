@@ -43,9 +43,23 @@ void setup()
   optionsScreen.init();
   //optionsScreen.addWidget(new TextScreenWidget("options", 1, 1));
   
-  optionsScreen.addWidget(new TextScreenWidget("07:12", 1, 1));
-  optionsScreen.addWidget(new TextScreenWidget("07:12", 1, 8));
-  optionsScreen.addWidget(new TextScreenWidget("07:12", 1, 15));
+  optionsScreen.addWidget(new TextScreenWidget("l", 3, 1));
+  optionsScreen.addWidget(new AlarmClockScreenWidget(1, 8, 0));
+  
+  optionsScreen.addWidget(new TextScreenWidget("m", 12, 1));
+  optionsScreen.addWidget(new AlarmClockScreenWidget(11, 8, 1));
+  
+  optionsScreen.addWidget(new TextScreenWidget("m", 22, 1));
+  optionsScreen.addWidget(new AlarmClockScreenWidget(21, 8, 2));
+  
+  optionsScreen.addWidget(new TextScreenWidget("j", 33, 1));
+  optionsScreen.addWidget(new AlarmClockScreenWidget(31, 8, 3));
+  
+  optionsScreen.addWidget(new TextScreenWidget("v", 42, 1));
+  optionsScreen.addWidget(new AlarmClockScreenWidget(41, 8, 4));
+  
+  optionsScreen.addWidget(new TextScreenWidget("s", 52, 1));
+  optionsScreen.addWidget(new AlarmClockScreenWidget(51, 8, 5));
   
 }
 

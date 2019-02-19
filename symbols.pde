@@ -56,6 +56,7 @@ SymbolSet clockSymbols;
 SymbolSet textSymbols;
 SymbolSet weatherSymbols;
 SymbolSet buttonSymbols;
+SymbolSet smallClockSymbols;
 
 void initSymbols() {
   clockSymbols = new SymbolSet(9, 15);
@@ -475,9 +476,9 @@ void initSymbols() {
   });
   textSymbols.put("0", new int[] {
     0, 1, 1, 0,
-    1, 0, 1, 1,
     1, 0, 0, 1,
-    1, 1, 0, 1,
+    1, 0, 0, 1,
+    1, 0, 0, 1,
     0, 1, 1, 0,
     0, 0, 0, 0,
   });
@@ -716,4 +717,97 @@ void initSymbols() {
     0, 1, 1, 1, 0,
     0, 0, 0, 0, 0,
   });
+  buttonSymbols.put("up", new int[] {
+    0, 0, 0, 0, 0,
+    0, 0, 1, 0, 0,
+    0, 1, 0, 1, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+  });
+  buttonSymbols.put("down", new int[] {
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 1, 0, 1, 0,
+    0, 0, 1, 0, 0,
+    0, 0, 0, 0, 0,
+  });
+  
+  smallClockSymbols = new SymbolSet(3, 5);
+  smallClockSymbols.put("0", new int[] {
+    1, 1, 1,
+    1, 0, 1,
+    1, 0, 1,
+    1, 0, 1,
+    1, 1, 1,
+  });
+  smallClockSymbols.put("1", new int[] {
+    0, 1, 1,
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+  });
+  smallClockSymbols.put("2", new int[] {
+    1, 1, 1,
+    0, 0, 1,
+    1, 1, 1,
+    1, 0, 0,
+    1, 1, 1,
+  });
+  smallClockSymbols.put("3", new int[] {
+    1, 1, 1,
+    0, 0, 1,
+    0, 1, 1,
+    0, 0, 1,
+    1, 1, 1,
+  });
+  smallClockSymbols.put("4", new int[] {
+    1, 0, 1,
+    1, 0, 1,
+    1, 1, 1,
+    0, 0, 1,
+    0, 0, 1,
+  });
+  smallClockSymbols.put("5", new int[] {
+    1, 1, 1,
+    1, 0, 0,
+    1, 1, 1,
+    0, 0, 1,
+    1, 1, 1,
+  });
+  smallClockSymbols.put("6", new int[] {
+    1, 1, 1,
+    1, 0, 0,
+    1, 1, 1,
+    1, 0, 1,
+    1, 1, 1,
+  });
+  smallClockSymbols.put("7", new int[] {
+    1, 1, 1,
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+  });
+  smallClockSymbols.put("8", new int[] {
+    1, 1, 1,
+    1, 0, 1,
+    1, 1, 1,
+    1, 0, 1,
+    1, 1, 1,
+  });
+  smallClockSymbols.put("9", new int[] {
+    1, 1, 1,
+    1, 0, 1,
+    1, 1, 1,
+    0, 0, 1,
+    1, 1, 1,
+  });
+  smallClockSymbols.put(":", new int[] {
+    0,
+    1,
+    0,
+    1,
+    0,
+  }, 1);
 };
