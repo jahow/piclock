@@ -39,7 +39,7 @@ class AlarmClockScreenWidget extends ScreenWidget {
   public void handleClick(int x, int y) {
     int height = smallClockSymbols.getHeight();
     
-    if (x >= baseX && x <= baseX + 5 && y >= baseY - 1 && y <= baseY + 3) {
+    if (x >= baseX && x <= baseX + 5 && y >= baseY - 2 && y <= baseY + 3) {
       minute++;
       if (minute > 59) {
         minute = 0;
@@ -48,7 +48,7 @@ class AlarmClockScreenWidget extends ScreenWidget {
       if (hour > 23) {
         hour = 0;
       }
-    } else if (x >= baseX && x <= baseX + 5 && y >= baseY + height * 2 + 5 && y <= baseY + height * 2 + 9) {
+    } else if (x >= baseX && x <= baseX + 5 && y >= baseY + height * 2 + 5 && y <= baseY + height * 2 + 10) {
       minute--;
       if (minute < 0) {
         minute = 59;

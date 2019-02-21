@@ -37,30 +37,83 @@ void setup()
       currentScreen = optionsScreen;
       return null;
     }
-  }, "simple"));
+  }, "empty", true, null));
   
   // OPTIONS SCREEN
   optionsScreen.init();
-  //optionsScreen.addWidget(new TextScreenWidget("options", 1, 1));
   
-  optionsScreen.addWidget(new TextScreenWidget("l", 3, 1));
-  optionsScreen.addWidget(new AlarmClockScreenWidget(1, 8, 0));
+  //optionsScreen.addWidget(new TextScreenWidget("l", 3, 1));
+  optionsScreen.addWidget(new ButtonScreenWidget(2, 0, new Callable() {
+    @Override
+    public String execute() {
+      return "enabled";
+    }
+  }, "disabled"));
+  optionsScreen.addWidget(new AlarmClockScreenWidget(1, 6, 0));
   
-  optionsScreen.addWidget(new TextScreenWidget("m", 12, 1));
-  optionsScreen.addWidget(new AlarmClockScreenWidget(11, 8, 1));
+  optionsScreen.addWidget(new ButtonScreenWidget(12, 0, new Callable() {
+    @Override
+    public String execute() {
+      return "enabled";
+    }
+  }, "disabled"));
+  optionsScreen.addWidget(new AlarmClockScreenWidget(11, 6, 1));
   
-  optionsScreen.addWidget(new TextScreenWidget("m", 22, 1));
-  optionsScreen.addWidget(new AlarmClockScreenWidget(21, 8, 2));
+  optionsScreen.addWidget(new ButtonScreenWidget(22, 0, new Callable() {
+    @Override
+    public String execute() {
+      return "enabled";
+    }
+  }, "disabled"));
+  optionsScreen.addWidget(new AlarmClockScreenWidget(21, 6, 2));
   
-  optionsScreen.addWidget(new TextScreenWidget("j", 33, 1));
-  optionsScreen.addWidget(new AlarmClockScreenWidget(31, 8, 3));
+  optionsScreen.addWidget(new ButtonScreenWidget(32, 0, new Callable() {
+    @Override
+    public String execute() {
+      return "enabled";
+    }
+  }, "disabled"));
+  optionsScreen.addWidget(new AlarmClockScreenWidget(31, 6, 3));
   
-  optionsScreen.addWidget(new TextScreenWidget("v", 42, 1));
-  optionsScreen.addWidget(new AlarmClockScreenWidget(41, 8, 4));
+  optionsScreen.addWidget(new ButtonScreenWidget(42, 0, new Callable() {
+    @Override
+    public String execute() {
+      return "enabled";
+    }
+  }, "disabled"));
+  optionsScreen.addWidget(new AlarmClockScreenWidget(41, 6, 4));
   
-  optionsScreen.addWidget(new TextScreenWidget("s", 52, 1));
-  optionsScreen.addWidget(new AlarmClockScreenWidget(51, 8, 5));
+  optionsScreen.addWidget(new ButtonScreenWidget(52, 0, new Callable() {
+    @Override
+    public String execute() {
+      return "enabled";
+    }
+  }, "disabled"));
+  optionsScreen.addWidget(new AlarmClockScreenWidget(51, 6, 5));
   
+  optionsScreen.addWidget(new ButtonScreenWidget(0, 28, new Callable() {
+    @Override
+    public String execute() {
+      println("change radio");
+      return null;
+    }
+  }, "note", "radio aa"));
+  
+  optionsScreen.addWidget(new ButtonScreenWidget(0, 34, new Callable() {
+    @Override
+    public String execute() {
+      currentScreen = mainScreen;
+      return null;
+    }
+  }, "action", "save"));
+  optionsScreen.addWidget(new ButtonScreenWidget(40, 34, new Callable() {
+    @Override
+    public String execute() {
+      // TODO: shut down
+      println("shutting down");
+      return null;
+    }
+  }, "action", "off"));
 }
 
 void draw() 

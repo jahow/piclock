@@ -6,18 +6,21 @@ class Callable {
 class ButtonScreenWidget extends ScreenWidget {
   int baseX;
   int baseY;
-  private String temp;
-  private String hr;
+  private String label;
   int lastCheckTime = -1;
   Callable callback;
   String symbol;
   int[] hitBounds;
   
-  public ButtonScreenWidget(int x, int y, Callable callback, String symbol) {
-    this(x, y, callback, symbol, false);
+  public ButtonScreenWidget(int x, int y, Callable callback, String symbol, String label) {
+    this(x, y, callback, symbol, false, label);
   }
   
-  public ButtonScreenWidget(int x, int y, Callable callback, String symbol, boolean allScreen) {
+  public ButtonScreenWidget(int x, int y, Callable callback, String symbol) {
+    this(x, y, callback, symbol, false, null);
+  }
+  
+  public ButtonScreenWidget(int x, int y, Callable callback, String symbol, boolean allScreen, String label) {
     baseX = x;
     baseY = y;
     this.callback = callback;
@@ -25,13 +28,16 @@ class ButtonScreenWidget extends ScreenWidget {
     this.hitBounds = allScreen ?
       new int[] {0, 0, getPixelCountX(), getPixelCountY()} :
       new int[] {baseX, baseY, baseX + buttonSymbols.getBaseWidth(), baseY + buttonSymbols.getHeight()}; 
+    this.label = label;
   }
   
   void update() {
   }
   
   float drawPixel(int x, int y, float prevState) {
-    int value = buttonSymbols.getSymbolValue(symbol, x - baseX, y - baseY);
+    int width = buttonSymbols.getSymbolWidth(symbol);
+    int value = buttonSymbols.getSymbolValue(symbol, x - baseX, y - baseY) +
+      (this.label != null ? getTextSymbolValue(this.label, x - baseX - width - 1, y - baseY + 1) : 0);
     return value > 0 ? 1.0 : prevState;
   }
   

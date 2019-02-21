@@ -696,6 +696,13 @@ void initSymbols() {
   });
   
   buttonSymbols = new SymbolSet(5, 5);
+  buttonSymbols.put("empty", new int[] {
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+  });
   buttonSymbols.put("simple", new int[] {
     0, 0, 0, 0, 0,
     0, 1, 0, 1, 0,
@@ -730,6 +737,34 @@ void initSymbols() {
     0, 1, 0, 1, 0,
     0, 0, 1, 0, 0,
     0, 0, 0, 0, 0,
+  });
+  buttonSymbols.put("left", new int[] {
+    0, 0, 0, 0, 0,
+    0, 0, 1, 0, 0,
+    0, 1, 0, 0, 0,
+    0, 0, 1, 0, 0,
+    0, 0, 0, 0, 0,
+  });
+  buttonSymbols.put("right", new int[] {
+    0, 0, 0, 0, 0,
+    0, 0, 1, 0, 0,
+    0, 0, 0, 1, 0,
+    0, 0, 1, 0, 0,
+    0, 0, 0, 0, 0,
+  });
+  buttonSymbols.put("action", new int[] {
+    0, 0, 0, 0, 0,
+    0, 1, 1, 0, 0,
+    0, 1, 1, 1, 0,
+    0, 1, 1, 0, 0,
+    0, 0, 0, 0, 0,
+  });
+  buttonSymbols.put("note", new int[] {
+    0, 1, 1, 0, 0,
+    0, 1, 0, 1, 0,
+    0, 1, 0, 1, 0,
+    1, 1, 0, 0, 0,
+    1, 1, 0, 0, 0,
   });
   
   smallClockSymbols = new SymbolSet(3, 5);

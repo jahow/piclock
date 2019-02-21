@@ -26,7 +26,8 @@ class TextScreenWidget extends ScreenWidget {
   
   float drawPixel(int x, int y, float prevState) {
     int overflowX = max(0, baseX + this.getTotalWidth() - getPixelCountX());
-    int shiftedX = overflowX > 0 ? x + floor((millis() - startTime) / 500) % overflowX : x;
+    //int shiftedX = overflowX > 0 ? x + floor((millis() - startTime) / 500) % overflowX : x;
+    int shiftedX = x;
     
     int charIndex = -1;
     for (int i = 0; i < text.length(); i++) {
