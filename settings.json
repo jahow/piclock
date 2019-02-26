@@ -1,0 +1,8 @@
+{
+    "radioList": {
+        "radio 1": "url",
+        "radio 2": "url2"
+    },
+    "currentRadio": 0
+}
+

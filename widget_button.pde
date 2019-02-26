@@ -6,11 +6,10 @@ class Callable {
 class ButtonScreenWidget extends ScreenWidget {
   int baseX;
   int baseY;
-  private String label;
+  String label;
   int lastCheckTime = -1;
   Callable callback;
   String symbol;
-  int[] hitBounds;
   
   public ButtonScreenWidget(int x, int y, Callable callback, String symbol) {
     this(x, y, callback, symbol, null);
@@ -21,12 +20,6 @@ class ButtonScreenWidget extends ScreenWidget {
     baseY = y;
     this.callback = callback;
     this.symbol = symbol;
-    
-    int textWidth = label != null ? getTextSymbolWidth(label) : 0;
-    this.hitBounds = new int[] {
-      baseX, baseY,
-      baseX + buttonSymbols.getBaseWidth() + textWidth + 1,
-      baseY + buttonSymbols.getHeight()}; 
     this.label = label;
   }
   
@@ -41,7 +34,10 @@ class ButtonScreenWidget extends ScreenWidget {
   }
   
   public void handleClick(int x, int y, boolean first) {
-    if (!first || x < hitBounds[0] || x > hitBounds[2] || y < hitBounds[1] || y > hitBounds[3]) {
+    int textWidth = label != null ? getTextSymbolWidth(label) : 0;
+    if (!first ||
+      x < baseX || x > baseX + buttonSymbols.getBaseWidth() + textWidth + 1 ||
+      y < baseY || y > baseY + buttonSymbols.getHeight()) {
       return;
     }
     

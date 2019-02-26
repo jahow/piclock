@@ -15,6 +15,7 @@ void setup()
   noCursor();
   
   initSymbols();
+  loadSettings();
   
   // MAIN SCREEN
   mainScreen.init();
@@ -42,61 +43,36 @@ void setup()
   optionsScreen.init();
   
   //optionsScreen.addWidget(new TextScreenWidget("l", 3, 1));
-  optionsScreen.addWidget(new ButtonScreenWidget(2, 0, new Callable() {
-    @Override
-    public String execute() {
-      return "enabled";
-    }
-  }, "disabled"));
+  optionsScreen.addWidget(new AlarmToggleScreenWidget(2, 0, 0));
   optionsScreen.addWidget(new AlarmClockScreenWidget(1, 6, 0));
   
-  optionsScreen.addWidget(new ButtonScreenWidget(12, 0, new Callable() {
-    @Override
-    public String execute() {
-      return "enabled";
-    }
-  }, "disabled"));
+  optionsScreen.addWidget(new AlarmToggleScreenWidget(12, 0, 1));
   optionsScreen.addWidget(new AlarmClockScreenWidget(11, 6, 1));
   
-  optionsScreen.addWidget(new ButtonScreenWidget(22, 0, new Callable() {
-    @Override
-    public String execute() {
-      return "enabled";
-    }
-  }, "disabled"));
+  optionsScreen.addWidget(new AlarmToggleScreenWidget(22, 0, 2));
   optionsScreen.addWidget(new AlarmClockScreenWidget(21, 6, 2));
   
-  optionsScreen.addWidget(new ButtonScreenWidget(32, 0, new Callable() {
-    @Override
-    public String execute() {
-      return "enabled";
-    }
-  }, "disabled"));
+  optionsScreen.addWidget(new AlarmToggleScreenWidget(32, 0, 3));
   optionsScreen.addWidget(new AlarmClockScreenWidget(31, 6, 3));
   
-  optionsScreen.addWidget(new ButtonScreenWidget(42, 0, new Callable() {
-    @Override
-    public String execute() {
-      return "enabled";
-    }
-  }, "disabled"));
+  optionsScreen.addWidget(new AlarmToggleScreenWidget(42, 0, 4));
   optionsScreen.addWidget(new AlarmClockScreenWidget(41, 6, 4));
   
-  optionsScreen.addWidget(new ButtonScreenWidget(52, 0, new Callable() {
-    @Override
-    public String execute() {
-      return "enabled";
-    }
-  }, "disabled"));
+  optionsScreen.addWidget(new AlarmToggleScreenWidget(52, 0, 5));
   optionsScreen.addWidget(new AlarmClockScreenWidget(51, 6, 5));
   
-  optionsScreen.addWidget(new ButtonScreenWidget(0, 28, new Callable() {
+  optionsScreen.addWidget(new ButtonScreenWidget(1, 28, new Callable() {
     @Override
     public String execute() {
-      println("change radio");
+      Settings_CurrentRadio = (Settings_CurrentRadio + 1) % Settings_RadioList.size();
       return null;
     }
-  }, "note", "radio aa"));
+  }, "note") {
+    @Override
+    public void update() {
+      this.label = Settings_RadioList.get(Settings_CurrentRadio).name;
+    }
+  });
   
   optionsScreen.addWidget(new ButtonScreenWidget(0, 34, new Callable() {
     @Override
