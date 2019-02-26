@@ -94,9 +94,9 @@ class LcdScreen {
     widgets.add(widget);
   }
   
-  public void handleClick(int x, int y) {
+  public void handleClick(int x, int y, boolean first) {
     for(ScreenWidget widget : widgets) {
-      widget.handleClick(x, y);
+      widget.handleClick(x, y, first);
     }
   }
 }

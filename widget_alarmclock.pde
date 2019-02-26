@@ -36,7 +36,7 @@ class AlarmClockScreenWidget extends ScreenWidget {
     return value > 0 ? 1.0 : prevState;
   }
   
-  public void handleClick(int x, int y) {
+  public void handleClick(int x, int y, boolean firstclick) {
     int height = smallClockSymbols.getHeight();
     
     if (x >= baseX && x <= baseX + 5 && y >= baseY - 2 && y <= baseY + 3) {

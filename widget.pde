@@ -26,6 +26,6 @@ class ScreenWidget {
     this.opacity = value;
   }
   
-  public void handleClick(int x, int y) {
+  public void handleClick(int x, int y, boolean first) {
   }
 }

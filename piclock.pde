@@ -31,13 +31,12 @@ void setup()
   mainScreen.addWidget(weatherWidget);
   
   //screen.addWidget(new PointerScreenWidget());
-  mainScreen.addWidget(new ButtonScreenWidget(getPixelCountX() - 4, -1, new Callable() {
+  mainScreen.addWidget(new ScreenWidget() {
     @Override
-    public String execute() {
-      currentScreen = optionsScreen;
-      return null;
+    public void handleClick(int x, int y, boolean first) {
+      if (first) { currentScreen = optionsScreen; }
     }
-  }, "empty", true, null));
+  });
   
   // OPTIONS SCREEN
   optionsScreen.init();
@@ -142,7 +141,7 @@ void draw()
   currentScreen.draw();
   
   if (mousePressed && (millis() - mousePressedStart) > 300 && frameCount % 4 == 0) {
-    doClick();
+    doClick(false);
   }
 }
 
@@ -151,11 +150,11 @@ int mousePressedStart = 0;
 void mousePressed()
 {
   mousePressedStart = millis();
-  doClick();
+  doClick(true);
 }
 
-void doClick()
+void doClick(boolean first)
 {
   int[] coords = getPixelCoords(mouseX, mouseY);
-  currentScreen.handleClick(coords[0], coords[1]);
+  currentScreen.handleClick(coords[0], coords[1], first);
 }

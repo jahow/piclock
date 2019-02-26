@@ -12,22 +12,21 @@ class ButtonScreenWidget extends ScreenWidget {
   String symbol;
   int[] hitBounds;
   
-  public ButtonScreenWidget(int x, int y, Callable callback, String symbol, String label) {
-    this(x, y, callback, symbol, false, label);
-  }
-  
   public ButtonScreenWidget(int x, int y, Callable callback, String symbol) {
-    this(x, y, callback, symbol, false, null);
+    this(x, y, callback, symbol, null);
   }
   
-  public ButtonScreenWidget(int x, int y, Callable callback, String symbol, boolean allScreen, String label) {
+  public ButtonScreenWidget(int x, int y, Callable callback, String symbol, String label) {
     baseX = x;
     baseY = y;
     this.callback = callback;
     this.symbol = symbol;
-    this.hitBounds = allScreen ?
-      new int[] {0, 0, getPixelCountX(), getPixelCountY()} :
-      new int[] {baseX, baseY, baseX + buttonSymbols.getBaseWidth(), baseY + buttonSymbols.getHeight()}; 
+    
+    int textWidth = label != null ? getTextSymbolWidth(label) : 0;
+    this.hitBounds = new int[] {
+      baseX, baseY,
+      baseX + buttonSymbols.getBaseWidth() + textWidth + 1,
+      baseY + buttonSymbols.getHeight()}; 
     this.label = label;
   }
   
@@ -41,8 +40,8 @@ class ButtonScreenWidget extends ScreenWidget {
     return value > 0 ? 1.0 : prevState;
   }
   
-  public void handleClick(int x, int y) {
-    if (x < hitBounds[0] || x > hitBounds[2] || y < hitBounds[1] || y > hitBounds[3]) {
+  public void handleClick(int x, int y, boolean first) {
+    if (!first || x < hitBounds[0] || x > hitBounds[2] || y < hitBounds[1] || y > hitBounds[3]) {
       return;
     }
     
