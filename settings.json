@@ -3,6 +3,24 @@
         "radio 1": "url",
         "radio 2": "url2"
     },
-    "currentRadio": 0
+    "currentRadio": 0,
+    "alarmTimes": [
+        [6, 45],
+        [6, 45],
+        [6, 45],
+        [6, 45],
+        [6, 45],
+        [6, 45],
+        [6, 45]
+    ],
+    "alarmEnabled": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+    ]
 }
 

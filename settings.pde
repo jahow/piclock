@@ -48,6 +48,15 @@ void loadSettings() {
     Settings_CurrentRadio = json.getInt("currentRadio");
     
     // alarms
+    JSONArray alarmTimes = json.getJSONArray("alarmTimes");
+    for (int i = 0; i < alarmTimes.size(); i++) {
+      Settings_AlarmTimes[i][0] = alarmTimes.getJSONArray(i).getIntArray()[0];
+      Settings_AlarmTimes[i][1] = alarmTimes.getJSONArray(i).getIntArray()[1];
+    }
+    JSONArray alarmEnabled = json.getJSONArray("alarmEnabled");
+    for (int i = 0; i < alarmTimes.size(); i++) {
+      Settings_AlarmEnabled[i] = alarmTimes.getBoolean(i);
+    }
   } catch (Exception e) {
     // failed!
   }

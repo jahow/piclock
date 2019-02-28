@@ -3,8 +3,6 @@ class AlarmClockScreenWidget extends ScreenWidget {
   int baseX;
   int baseY;
   int dayIndex;    // 0 is monday, 1 is tuesday, ... 6 is sunday
-  int hour;
-  int minute;
   String hourText;
   String minuteText;
   
@@ -12,18 +10,20 @@ class AlarmClockScreenWidget extends ScreenWidget {
     baseX = x;
     baseY = y;
     dayIndex = day;
-    
-    // TODO: read from file
-    hour = 23;
-    minute = 12;
   }
   
   void update() {
+    int hour = Settings_AlarmTimes[dayIndex][0];
+    int minute = Settings_AlarmTimes[dayIndex][1];
     hourText = nf(hour, 2, 0);
     minuteText = nf(minute, 2, 0);
   }
   
   float drawPixel(int x, int y, float prevState) {
+    if (!Settings_AlarmEnabled[dayIndex]) {
+      return prevState;
+    }
+    
     int width = smallClockSymbols.getBaseWidth();
     int height = smallClockSymbols.getHeight();
     int value =
@@ -38,6 +38,8 @@ class AlarmClockScreenWidget extends ScreenWidget {
   
   public void handleClick(int x, int y, boolean firstclick) {
     int height = smallClockSymbols.getHeight();
+    int hour = Settings_AlarmTimes[dayIndex][0];
+    int minute = Settings_AlarmTimes[dayIndex][1];
     
     if (x >= baseX && x <= baseX + 5 && y >= baseY - 2 && y <= baseY + 3) {
       minute++;
@@ -57,6 +59,9 @@ class AlarmClockScreenWidget extends ScreenWidget {
       if (hour < 0) {
         hour = 23;
       }
-    } 
+    }
+  
+    Settings_AlarmTimes[dayIndex][0] = hour;
+    Settings_AlarmTimes[dayIndex][1] = minute; 
   }
 }
