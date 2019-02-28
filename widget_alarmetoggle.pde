@@ -6,6 +6,10 @@ class AlarmToggleScreenWidget extends ButtonScreenWidget {
     this.day = day;
   }
   
+  public void update() {
+    symbol = Settings_AlarmEnabled[this.day] ? "enabled" : "disabled";
+  }
+  
   @Override
   public void handleClick(int x, int y, boolean first) {
     if (!first ||
@@ -15,6 +19,5 @@ class AlarmToggleScreenWidget extends ButtonScreenWidget {
     }
     
     Settings_AlarmEnabled[this.day] = !Settings_AlarmEnabled[this.day];
-    symbol = Settings_AlarmEnabled[this.day] ? "enabled" : "disabled";
   }
 }

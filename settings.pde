@@ -54,13 +54,40 @@ void loadSettings() {
       Settings_AlarmTimes[i][1] = alarmTimes.getJSONArray(i).getIntArray()[1];
     }
     JSONArray alarmEnabled = json.getJSONArray("alarmEnabled");
-    for (int i = 0; i < alarmTimes.size(); i++) {
-      Settings_AlarmEnabled[i] = alarmTimes.getBoolean(i);
+    for (int i = 0; i < alarmEnabled.size(); i++) {
+      Settings_AlarmEnabled[i] = alarmEnabled.getBoolean(i);
     }
   } catch (Exception e) {
-    // failed!
+    println("loadSettings failed: " + e.getMessage());
   }
 }
 
 void saveSettings() {
+  try {
+    JSONObject lastJson = loadJSONObject("settings.json");
+    JSONObject json = new JSONObject();
+    
+    // radios (list is taken from the previous file)
+    json.setJSONObject("radioList", lastJson.getJSONObject("radioList"));
+    json.setInt("currentRadio", Settings_CurrentRadio);
+    
+    // alarms
+    JSONArray alarmTimes = new JSONArray();
+    for (int i = 0; i < Settings_AlarmTimes.length; i++) {
+      JSONArray timeArray = new JSONArray();
+      timeArray.setInt(0, Settings_AlarmTimes[i][0]);
+      timeArray.setInt(1, Settings_AlarmTimes[i][1]);
+      alarmTimes.setJSONArray(i, timeArray);
+    }
+    json.setJSONArray("alarmTimes", alarmTimes);
+    JSONArray alarmEnabled = new JSONArray();
+    for (int i = 0; i < Settings_AlarmEnabled.length; i++) {
+      alarmEnabled.setBoolean(i, Settings_AlarmEnabled[i]);
+    }
+    json.setJSONArray("alarmEnabled", alarmEnabled);
+    
+    saveJSONObject(json, "settings.json");
+  } catch (Exception e) {
+    println("saveSettings failed: " + e.getMessage());
+  }
 }

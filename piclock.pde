@@ -78,6 +78,7 @@ void setup()
     @Override
     public String execute() {
       currentScreen = mainScreen;
+      saveSettings();
       return null;
     }
   }, "action", "save"));
