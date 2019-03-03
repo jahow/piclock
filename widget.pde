@@ -14,7 +14,7 @@ class ScreenWidget {
   }
   
   public float drawTransformedPixel(int x, int y, float prevState) {
-    return Math.max(prevState, drawPixel(x - translateX, y - translateY, prevState) * opacity);
+    return max(prevState, drawPixel(x - translateX, y - translateY, prevState) * opacity);
   }
   
   public void translate(int x, int y) {

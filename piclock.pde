@@ -85,11 +85,12 @@ void setup()
   optionsScreen.addWidget(new ButtonScreenWidget(40, 34, new Callable() {
     @Override
     public String execute() {
-      // TODO: shut down
-      println("shutting down");
+      beginShutdown();
       return null;
     }
   }, "action", "off"));
+  
+  optionsScreen.addWidget(new ShutdownScreenWidget());
 }
 
 void draw() 
