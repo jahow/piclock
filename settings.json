@@ -1,7 +1,8 @@
 {
     "radioList": {
-        "radio 1": "url",
-        "radio 2": "url2"
+        "frculture": "http://direct.franceculture.fr/live/franceculture-midfi.mp3",
+        "couleur 3": "http://stream.srg-ssr.ch/m/couleur3/mp3_128",
+        "fip": "http://direct.fipradio.fr/live/fip-midfi.mp3"
     },
     "currentRadio": 0,
     "alarmTimes": [
