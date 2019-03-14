@@ -17,13 +17,13 @@ class DateScreenWidget extends ScreenWidget {
   
   void update() {
     switch(cal.get(Calendar.DAY_OF_WEEK)) {
-      case 1: dayName = "dim."; break;
-      case 2: dayName = "lun."; break;
-      case 3: dayName = "mar."; break;
-      case 4: dayName = "mer."; break;
-      case 5: dayName = "jeu."; break;
-      case 6: dayName = "ven."; break;
-      case 7: dayName = "sam."; break;
+      case Calendar.SUNDAY: dayName = "dim."; break;
+      case Calendar.MONDAY: dayName = "lun."; break;
+      case Calendar.TUESDAY: dayName = "mar."; break;
+      case Calendar.WEDNESDAY: dayName = "mer."; break;
+      case Calendar.THURSDAY: dayName = "jeu."; break;
+      case Calendar.FRIDAY: dayName = "ven."; break;
+      case Calendar.SATURDAY: dayName = "sam."; break;
     }
     date = pad(str(day()), 2) + "-" + pad(str(month()), 2);
   }

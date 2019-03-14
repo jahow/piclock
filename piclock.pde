@@ -11,11 +11,13 @@ ScreenWidget weatherWidget;
 
 void setup() 
 {
-  fullScreen();
-  noCursor();
+  //fullScreen();
+  // noCursor();
+  size(480, 320);
   
   initSymbols();
   loadSettings();
+  initAlarm();
   
   // MAIN SCREEN
   mainScreen.init();
@@ -117,6 +119,8 @@ void draw()
   weatherWidget.setOpacity(animRatio);
   
   currentScreen.draw();
+  
+  updateAlarm();
   
   if (mousePressed && (millis() - mousePressedStart) > 300 && frameCount % 4 == 0) {
     doClick(false);
