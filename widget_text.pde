@@ -1,15 +1,20 @@
 class TextScreenWidget extends ScreenWidget {  
-  private String text;
-  private int baseX;
-  private int baseY;
+  protected String text;
+  protected int baseX;
+  protected int baseY;
   private int[] charOffsets;
   private int startTime = millis();
   
   public TextScreenWidget(String text, int x, int y) {
-    this.text = text.toUpperCase();
-    
     baseX = x;
     baseY = y;
+    
+    this.setText(text);
+  }
+  
+  void setText(String text) {
+    this.text = text.toUpperCase();
+    
     charOffsets = new int[text.length() + 1];
     int offset = 0;
     int gutter = 1;

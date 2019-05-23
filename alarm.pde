@@ -3,10 +3,16 @@ void initAlarm() {
 
 void playAudio(String file) {
   exec("omxplayer", "--no-keys", file, "&");
+  playing = 2;
 }
 
 void stopAudio() {
   exec("killall", "omxplayer.bin");
+  playing = 0;
+}
+
+boolean isAlarmPlaying() {
+  return playing > 0;
 }
 
 int checkHours = -1;
@@ -19,12 +25,10 @@ final int ALARM_SOUND_DURATION_MS = 6000;
 void updateAlarm() {
   if (playing == 1 && millis() - startTime > ALARM_SOUND_DURATION_MS) {
     playAudio(Settings_RadioList.get(Settings_CurrentRadio).url);
-    println("playing radio");
-    playing = 2;
+    //println("playing radio");
   }
   
   if (playing > 0 && millis() - startTime > ALARM_DURATION_MS) {
-    playing = 0;
     stopAudio();
     println("stopping all sound");
   }

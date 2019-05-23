@@ -766,6 +766,20 @@ void initSymbols() {
     1, 1, 0, 0, 0,
     1, 1, 0, 0, 0,
   });
+  buttonSymbols.put("play", new int[] {
+    1, 0, 1, 0, 0,
+    1, 1, 0, 1, 0,
+    1, 1, 1, 0, 1,
+    1, 1, 0, 1, 0,
+    1, 0, 1, 0, 0,
+  });
+  buttonSymbols.put("pause", new int[] {
+    1, 1, 0, 1, 1,
+    1, 1, 0, 1, 1,
+    1, 1, 0, 1, 1,
+    1, 1, 0, 1, 1,
+    1, 1, 0, 1, 1,
+  });
   
   smallClockSymbols = new SymbolSet(3, 5);
   smallClockSymbols.put("0", new int[] {

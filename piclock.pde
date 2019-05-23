@@ -66,13 +66,33 @@ void setup()
   optionsScreen.addWidget(new ButtonScreenWidget(1, 28, new Callable() {
     @Override
     public String execute() {
-      Settings_CurrentRadio = (Settings_CurrentRadio + 1) % Settings_RadioList.size();
+      if (isAlarmPlaying()) {
+        stopAudio();
+      } else {
+        playAudio(Settings_RadioList.get(Settings_CurrentRadio).url);
+      }
       return null;
     }
-  }, "note") {
+  }, "play") {
     @Override
     public void update() {
-      this.label = Settings_RadioList.get(Settings_CurrentRadio).name;
+      this.symbol = isAlarmPlaying() ? "pause" : "play";
+    }
+  });
+  optionsScreen.addWidget(new TextScreenWidget("-", 8, 27) {
+    @Override
+    public void update() {
+      this.setText(Settings_RadioList.get(Settings_CurrentRadio).name);
+    }
+    @Override
+    public void handleClick(int x, int y, boolean first) {
+      int textWidth = getTextSymbolWidth(this.text);
+      if (!first ||
+        x < baseX ||
+        y < baseY || y > baseY + textSymbols.getHeight()) {
+        return;
+      }
+      Settings_CurrentRadio = (Settings_CurrentRadio + 1) % Settings_RadioList.size();
     }
   });
   
