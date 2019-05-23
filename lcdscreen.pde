@@ -51,9 +51,9 @@ class LcdScreen {
       cmd = screenStateCommand[i];
       
       if (cmd > screenState[i]) {
-        screenState[i] = cmd - (cmd - screenState[i]) * 0.7;
+        screenState[i] = cmd - (cmd - screenState[i]) * 0.6;
       } else {
-        screenState[i] = cmd - (cmd - screenState[i]) * 0.8;
+        screenState[i] = cmd - (cmd - screenState[i]) * 0.6;
       }
     }
     
