@@ -1,8 +1,3 @@
-import java.util.Calendar;
-import java.util.TimeZone;
-
-Calendar cal = Calendar.getInstance(TimeZone.getDefault());
-
 // This displays the date
 class DateScreenWidget extends ScreenWidget {
   int baseX;
@@ -16,7 +11,7 @@ class DateScreenWidget extends ScreenWidget {
   }
   
   void update() {
-    switch(cal.get(Calendar.DAY_OF_WEEK)) {
+    switch(currentDay.get(Calendar.DAY_OF_WEEK)) {
       case Calendar.SUNDAY: dayName = "dim."; break;
       case Calendar.MONDAY: dayName = "lun."; break;
       case Calendar.TUESDAY: dayName = "mar."; break;

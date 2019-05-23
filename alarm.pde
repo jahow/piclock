@@ -34,7 +34,7 @@ void updateAlarm() {
     checkMinutes = minute();
     int day = 0;
    
-    switch(cal.get(Calendar.DAY_OF_WEEK)) {
+    switch(currentDay.get(Calendar.DAY_OF_WEEK)) {
       case Calendar.MONDAY: day = 0; break;
       case Calendar.TUESDAY: day = 1; break;
       case Calendar.WEDNESDAY: day = 2; break;

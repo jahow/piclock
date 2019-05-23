@@ -122,6 +122,8 @@ void draw()
   
   updateAlarm();
   
+  updateTime();
+  
   if (mousePressed && (millis() - mousePressedStart) > 300 && frameCount % 4 == 0) {
     doClick(false);
   }

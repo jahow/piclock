@@ -1,3 +1,7 @@
+import java.util.Date;
+import java.util.Calendar;
+import java.util.TimeZone;
+
 final int[] tempCoords = {0, 0};
 final int SHIFTX = 3;
 final int SHIFTY = 3;
@@ -76,4 +80,17 @@ String pad(String text, int length, String padChar) {
     result = padChar + result;
   }
   return result;
+}
+
+// this is used by anyone who wants date info
+Calendar currentDay = Calendar.getInstance(TimeZone.getDefault());
+int lastTimeUpdate = 0;
+
+void updateTime() {
+  int current = millis();
+  if (current - lastTimeUpdate > 60000) {
+    currentDay.setTime(new Date());
+    lastTimeUpdate = current;
+    //println("updating calendar");
+  }
 }
