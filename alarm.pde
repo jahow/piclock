@@ -28,9 +28,10 @@ void updateAlarm() {
     //println("playing radio");
   }
   
-  if (playing > 0 && millis() - startTime > ALARM_DURATION_MS) {
+  if (playing > 0 && millis() - startTime > ALARM_DURATION_MS && startTime > 0) {
     stopAudio();
-    println("stopping all sound");
+    startTime = 0;
+    //println("stopping all sound");
   }
   
   if (hour() != checkHours || minute() != checkMinutes) {
