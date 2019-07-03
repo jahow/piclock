@@ -14,6 +14,9 @@ void setup()
   //fullScreen();
   // noCursor();
   size(480, 320);
+  colorMode(HSB, 100);
+  noiseDetail(2, 0.1);
+  noiseSeed(millis());
   
   initSymbols();
   loadSettings();

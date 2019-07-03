@@ -1,7 +1,7 @@
 final int GUTTER = 2;
 final int PIXEL_SIZE = 6;
 final int GLOW_RADIUS = 4;
-final float GLOW_RATIO = 0.17;
+final float GLOW_RATIO = 0.19;
 
 class LcdScreen {
   final int screenWidth = getPixelCountX();
@@ -81,13 +81,9 @@ class LcdScreen {
       }
       
       // draw
-      fill(this.getPixelColor(x, y, state));
+      fill(getScreenColor(x, y), state * 100);
       rect(coords[0], coords[1], radius, radius);
     }
-  }
-  
-  color getPixelColor(int x, int y, float state) {
-    return lerpColor(color(0), color(200, 210, 255), state);
   }
   
   void addWidget(ScreenWidget widget) {

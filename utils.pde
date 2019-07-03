@@ -94,3 +94,28 @@ void updateTime() {
     //println("updating calendar");
   }
 }
+
+color[] screenColors = new color[]{
+  #95D9FA,
+  #95FAF2,
+  #EAFA95,
+  #FFFB7C,
+  #FFDA7C,
+  #FFD5A2,
+  #EDBCFF,
+  #D3BCFF
+};
+
+color getScreenColor(int x, int y) {
+  //float n = noise(x * 0.15, y * 0.15) * 100 + millis()* 0.004;
+  //float hue = (floor(n / 20.0) * 20.0) % 100;
+  float colorIndex = (millis() * 0.0001) % screenColors.length;
+  float ratio = colorIndex % 1;
+  int indexA = floor(colorIndex) % screenColors.length;
+  int indexB = (indexA + 1) % screenColors.length;
+  int indexC = (indexA + 2) % screenColors.length;
+  color a = lerpColor(screenColors[indexA], screenColors[indexB], ratio);
+  color b = lerpColor(screenColors[indexB], screenColors[indexC], ratio);
+  float noiseRatio = noise(x * 0.05, y * 0.05, millis() * 0.0001)  + millis()* 0.0001;
+  return lerpColor(a, b, noiseRatio);
+}
