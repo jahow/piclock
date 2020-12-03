@@ -1,0 +1,17 @@
+{
+  "name": "html-clock",
+  "version": "1.0.0",
+  "description": "a html clock",
+  "main": "index.js",
+  "author": "jahow",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^2.1.2"
+  },
+  "scripts": {
+    "build": "parcel build src/index.html",
+    "dev": "parcel src/index.html"
+  }
+}
