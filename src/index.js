@@ -1,7 +1,6 @@
-import './components/flap-alpha-display';
+import './modules/display';
+import { addWidget } from './modules/display';
+import { testWidget } from './modules/widgets';
 
-const clock = /** @type {FlapAlphaDisplay} */ document.getElementById(
-  'main-clock'
-);
-
-clock.text = '21:34';
+addWidget(testWidget(10, 10, 8, 1));
+addWidget(testWidget(26, 6, 4, 2));
