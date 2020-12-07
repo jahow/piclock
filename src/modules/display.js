@@ -15,8 +15,12 @@ document.body.appendChild(canvas);
 
 const colors = ['#3E3E3E', '#FF2222', '#22FF22', '#FFFF22'];
 
-// each cell holds an integer referencing the color
-const grid = new Array(colCount * rowCount).fill(0);
+// each cell holds an object containing: current color, target color, transition from back to front (0-1)
+const grid = new Array(colCount * rowCount).fill(0).map(() => ({
+  frontColor: 0,
+  backColor: 0,
+  transition: 1,
+}));
 
 /** @type {Widget[]} */
 const widgets = [];
@@ -28,9 +32,14 @@ export function addWidget(widget) {
   widgets.push(widget);
 }
 
+let lastTime = Date.now();
+
+const TRANSITION_DURATION = 300;
+
 function render() {
-  // clear grid
-  grid.fill(0);
+  const now = Date.now();
+  const delta = now - lastTime;
+  lastTime = now;
 
   const ctx = /** @type {CanvasRenderingContext2D} */ canvas.getContext('2d');
   ctx.fillStyle = '#1f1f1f';
@@ -38,24 +47,47 @@ function render() {
 
   for (let i = 0; i < colCount; i++) {
     for (let j = 0; j < rowCount; j++) {
-      const gridIndex = i + j * colCount;
+      const gridCell = grid[i + j * colCount];
 
+      // use clear color by default
+      let newColor = 0;
       for (let k = 0; k < widgets.length; k++) {
-        grid[gridIndex] = widgets[k](i, j, grid[gridIndex]);
+        newColor = widgets[k](i, j, newColor);
       }
 
-      ctx.fillStyle = colors[grid[gridIndex]];
+      if (newColor !== gridCell.frontColor) {
+        gridCell.backColor = gridCell.frontColor;
+        gridCell.frontColor = newColor;
+        gridCell.transition = 0;
+      }
+
+      if (gridCell.transition < 0.5) {
+        ctx.fillStyle = colors[gridCell.backColor];
+      } else {
+        ctx.fillStyle = colors[gridCell.frontColor];
+      }
+      const width = Math.abs(gridCell.transition * 2 - 1) * CELL_SIZE;
+      const shift = (CELL_SIZE - width) / 2;
+
       const x = i * (CELL_SIZE + CELL_GUTTER) + CELL_GUTTER;
       const y = j * (CELL_SIZE + CELL_GUTTER) + CELL_GUTTER;
       const r = 4;
       ctx.beginPath();
-      ctx.moveTo(x + r, y);
-      ctx.arcTo(x + CELL_SIZE, y, x + CELL_SIZE, y + CELL_SIZE, r);
-      ctx.arcTo(x + CELL_SIZE, y + CELL_SIZE, x, y + CELL_SIZE, r);
-      ctx.arcTo(x, y + CELL_SIZE, x, y, r);
-      ctx.arcTo(x, y, x + CELL_SIZE, y, r);
+      ctx.moveTo(x + shift + r, y);
+      ctx.arcTo(x + shift + width, y, x + width + shift, y + CELL_SIZE, r);
+      ctx.arcTo(x + shift + width, y + CELL_SIZE, x + shift, y + CELL_SIZE, r);
+      ctx.arcTo(x + shift, y + CELL_SIZE, x + shift, y, r);
+      ctx.arcTo(x + shift, y, x + shift + width, y, r);
       ctx.closePath();
       ctx.fill();
+
+      gridCell.transition = Math.min(
+        1,
+        gridCell.transition + delta / TRANSITION_DURATION
+      );
+      // if (gridCell.transition === 1) {
+      //   gridCell.backColor = gridCell.frontColor;
+      // }
     }
   }
 

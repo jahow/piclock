@@ -14,7 +14,7 @@ const HALF_PI = Math.PI * 0.5;
  */
 export function testWidget(centerX, centerY, radius, color) {
   return (x, y, prevColor) => {
-    const currentAngle = ((Date.now() / 4000) % 1) * TWO_PI - PI;
+    const currentAngle = ((Date.now() / 3000) % 1) * TWO_PI - PI;
     const deltaX = x - centerX;
     const deltaY = y - centerY;
     const angle = Math.atan2(-deltaY, deltaX);
