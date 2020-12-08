@@ -1,5 +1,5 @@
-const CELL_SIZE = 16;
-const CELL_GUTTER = 4;
+const CELL_SIZE = 9;
+const CELL_GUTTER = 2;
 
 const SCREEN_WIDTH = 800;
 const SCREEN_HEIGHT = 480;
@@ -41,6 +41,11 @@ function render() {
   const delta = now - lastTime;
   lastTime = now;
 
+  // update widgets each frame
+  for (let k = 0; k < widgets.length; k++) {
+    widgets[k].update();
+  }
+
   const ctx = /** @type {CanvasRenderingContext2D} */ canvas.getContext('2d');
   ctx.fillStyle = '#1f1f1f';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -52,7 +57,7 @@ function render() {
       // use clear color by default
       let newColor = 0;
       for (let k = 0; k < widgets.length; k++) {
-        newColor = widgets[k](i, j, newColor);
+        newColor = widgets[k].render(i, j, newColor);
       }
 
       if (newColor !== gridCell.frontColor) {
