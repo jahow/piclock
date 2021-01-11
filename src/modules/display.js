@@ -1,5 +1,5 @@
-const CELL_SIZE = 9;
-const CELL_GUTTER = 2;
+const CELL_SIZE = 6;
+const CELL_GUTTER = 4;
 
 const SCREEN_WIDTH = 800;
 const SCREEN_HEIGHT = 480;
@@ -13,7 +13,7 @@ canvas.height = rowCount * CELL_SIZE + (rowCount + 1) * CELL_GUTTER;
 
 document.body.appendChild(canvas);
 
-const colors = ['#3E3E3E', '#FF2222', '#22FF22', '#FFFF22'];
+const colors = ['#2c2c2c', '#FF2222', '#22FF22', '#FFFF22'];
 
 // each cell holds an object containing: current color, target color, transition from back to front (0-1)
 const grid = new Array(colCount * rowCount).fill(0).map(() => ({
@@ -50,14 +50,15 @@ function render() {
   ctx.fillStyle = '#1f1f1f';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  for (let i = 0; i < colCount; i++) {
-    for (let j = 0; j < rowCount; j++) {
-      const gridCell = grid[i + j * colCount];
+  // update colors
+  for (let i = 0; i < rowCount; i++) {
+    for (let j = 0; j < colCount; j++) {
+      const gridCell = grid[j + i * colCount];
 
       // use clear color by default
       let newColor = 0;
       for (let k = 0; k < widgets.length; k++) {
-        newColor = widgets[k].render(i, j, newColor);
+        newColor = widgets[k].render(j, i, newColor);
       }
 
       if (newColor !== gridCell.frontColor) {
@@ -66,33 +67,42 @@ function render() {
         gridCell.transition = 0;
       }
 
-      if (gridCell.transition < 0.5) {
-        ctx.fillStyle = colors[gridCell.backColor];
-      } else {
-        ctx.fillStyle = colors[gridCell.frontColor];
-      }
-      const width = Math.abs(gridCell.transition * 2 - 1) * CELL_SIZE;
-      const shift = (CELL_SIZE - width) / 2;
-
-      const x = i * (CELL_SIZE + CELL_GUTTER) + CELL_GUTTER;
-      const y = j * (CELL_SIZE + CELL_GUTTER) + CELL_GUTTER;
-      const r = 4;
-      ctx.beginPath();
-      ctx.moveTo(x + shift + r, y);
-      ctx.arcTo(x + shift + width, y, x + width + shift, y + CELL_SIZE, r);
-      ctx.arcTo(x + shift + width, y + CELL_SIZE, x + shift, y + CELL_SIZE, r);
-      ctx.arcTo(x + shift, y + CELL_SIZE, x + shift, y, r);
-      ctx.arcTo(x + shift, y, x + shift + width, y, r);
-      ctx.closePath();
-      ctx.fill();
-
+      // update transition value
       gridCell.transition = Math.min(
         1,
         gridCell.transition + delta / TRANSITION_DURATION
       );
-      // if (gridCell.transition === 1) {
-      //   gridCell.backColor = gridCell.frontColor;
-      // }
+    }
+  }
+
+  // draw grid
+  for (let i = 0; i < rowCount; i++) {
+    for (let j = 0; j < colCount; j++) {
+      const gridCell = grid[j + i * colCount];
+
+      ctx.strokeStyle = colors[gridCell.frontColor];
+      ctx.lineWidth = gridCell.frontColor === 0 ? CELL_SIZE * 0.5 : CELL_SIZE;
+
+      const x = j * (CELL_SIZE + CELL_GUTTER) + CELL_GUTTER;
+      const y = i * (CELL_SIZE + CELL_GUTTER) + CELL_GUTTER + CELL_SIZE / 2;
+
+      // check for similar neighboring cells
+      let extraCells = 0;
+      for (let k = j + 1; k < colCount; k++) {
+        const nextGridCell = grid[k + i * colCount];
+        if (nextGridCell.frontColor !== gridCell.frontColor) {
+          break;
+        }
+        j++;
+        extraCells++;
+      }
+      const width = CELL_SIZE + extraCells * (CELL_SIZE + CELL_GUTTER);
+
+      ctx.beginPath();
+      ctx.moveTo(x + 0.5, y);
+      ctx.lineTo(x + width - 0.5, y);
+      ctx.closePath();
+      ctx.stroke();
     }
   }
 
