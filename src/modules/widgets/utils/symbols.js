@@ -7,8 +7,8 @@ const DEBUG = true;
  */
 export function getSymbolWidth(set, key) {
   // missing symbol: return checker pattern
-  if (DEBUG && !key in set.symbols) {
-    Math.ceil(set.height / 2);
+  if (DEBUG && !(key in set.symbols)) {
+    return Math.ceil(set.height / 2);
   }
   return set.symbols[key][0];
 }
@@ -28,7 +28,7 @@ export function getSymbolValue(set, key, col, row) {
   }
 
   // missing symbol: return checker pattern
-  if (DEBUG && !key in set.symbols) {
+  if (DEBUG && !(key in set.symbols)) {
     return (col % 2 === 0 && row % 2 === 0) || (col % 2 === 1 && row % 2 === 1)
       ? 1
       : 0;
@@ -39,226 +39,21 @@ export function getSymbolValue(set, key, col, row) {
 }
 
 /**
- * @param {string[]} symbolAsStrings
- * @return {Object<string, number[]>} symbols Symbol width is the first value
+ * @param {SymbolSet} set
+ * @param {string[]} keys
+ * @param {number} padding
+ * @param {number} col
+ * @param {number} row
+ * @return {number}
  */
-function processSymbol(symbolAsStrings) {
-  const symbolWidth = symbolAsStrings.reduce(
-    (prev, curr) => Math.max(prev, curr.length),
-    0
-  );
-  return symbolAsStrings.reduce(
-    (prev, curr) => {
-      return [
-        ...prev,
-        ...curr
-          .padEnd(symbolWidth, ' ')
-          .split('')
-          .map((char) => (char !== ' ' ? 1 : 0)),
-      ];
-    },
-    [symbolWidth]
-  );
+export function getSymbolChainValue(set, keys, padding, col, row) {
+  let currCol = 0;
+  let value = 0;
+
+  for (let i = 0, ii = keys.length; i < ii; i++) {
+    value += getSymbolValue(set, keys[i], col - currCol, row);
+    currCol += getSymbolWidth(set, keys[i]) + padding;
+  }
+
+  return value;
 }
-
-/**
- * @typedef {Object} SymbolSet
- * @property {number} baseWidth
- * @property {number} height
- * @property {Object<string, number[]>} symbols Symbol width is the first number here
- */
-
-/** @type {SymbolSet} */
-export const clockSymbols = {
-  baseWidth: 9,
-  height: 15,
-  symbols: {
-    0: processSymbol([
-      ' xxxxxxx ',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      ' xxxxxxx ',
-    ]),
-    1: processSymbol([
-      '   xxxxx ',
-      '   xxxxxx',
-      '   xxxxxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-    ]),
-    2: processSymbol([
-      'xxxxxxxx ',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      ' xxxxxxxx',
-      'xxxxxxxxx',
-      'xxxxxxxx ',
-      'xxx      ',
-      'xxx      ',
-      'xxx      ',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-    ]),
-    3: processSymbol([
-      'xxxxxxxx ',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      'xxxxxxxx ',
-    ]),
-    4: processSymbol([
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-    ]),
-    5: processSymbol([
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      'xxx      ',
-      'xxx      ',
-      'xxx      ',
-      'xxxxxxxx ',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      'xxxxxxxx ',
-    ]),
-    6: processSymbol([
-      ' xxxxxxx ',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      'xxx      ',
-      'xxx      ',
-      'xxx      ',
-      'xxxxxxxx ',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      ' xxxxxxx ',
-    ]),
-    7: processSymbol([
-      'xxxxxxxx ',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-    ]),
-    8: processSymbol([
-      ' xxxxxxx ',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      ' xxxxxxx ',
-    ]),
-    9: processSymbol([
-      ' xxxxxxx ',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxx   xxx',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      ' xxxxxxxx',
-      '      xxx',
-      '      xxx',
-      '      xxx',
-      'xxxxxxxxx',
-      'xxxxxxxxx',
-      'xxxxxxxx ',
-    ]),
-    ':': processSymbol([
-      '   ',
-      '   ',
-      '   ',
-      'xxx',
-      'xxx',
-      'xxx',
-      '   ',
-      '   ',
-      '   ',
-      'xxx',
-      'xxx',
-      'xxx',
-      '   ',
-      '   ',
-      '   ',
-    ]),
-  },
-};

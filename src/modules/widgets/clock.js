@@ -1,45 +1,24 @@
+import { getSymbolChainValue } from './utils/symbols';
+import { clockSymbols } from './utils/symbols.definitions';
+
 /**
  * @param {number} baseX
  * @param {number} baseY
  * @param {number} color
  * @return {Widget}
  */
-import { clockSymbols, getSymbolValue, getSymbolWidth } from './utils/symbols';
-
 export function clockWidget(baseX, baseY, color) {
   const chars = ['0', '0', '0', '0', '0', '0'];
 
   return {
     render(x, y, prevColor) {
-      let currentX = baseX;
-      const startY = baseY;
-      const padding = 3;
-      let value = 0;
-
-      value += getSymbolValue(clockSymbols, chars[0], x - currentX, y - startY);
-      currentX += getSymbolWidth(clockSymbols, chars[0]) + padding;
-
-      value += getSymbolValue(clockSymbols, chars[1], x - currentX, y - startY);
-      currentX += getSymbolWidth(clockSymbols, chars[1]) + padding;
-
-      value += getSymbolValue(clockSymbols, ':', x - currentX, y - startY);
-      currentX += getSymbolWidth(clockSymbols, ':') + padding;
-
-      value += getSymbolValue(clockSymbols, chars[2], x - currentX, y - startY);
-      currentX += getSymbolWidth(clockSymbols, chars[2]) + padding;
-
-      value += getSymbolValue(clockSymbols, chars[3], x - currentX, y - startY);
-      currentX += getSymbolWidth(clockSymbols, chars[3]) + padding;
-
-      value += getSymbolValue(clockSymbols, ':', x - currentX, y - startY);
-      currentX += getSymbolWidth(clockSymbols, ':') + padding;
-
-      value += getSymbolValue(clockSymbols, chars[4], x - currentX, y - startY);
-      currentX += getSymbolWidth(clockSymbols, chars[4]) + padding;
-
-      value += getSymbolValue(clockSymbols, chars[5], x - currentX, y - startY);
-      currentX += getSymbolWidth(clockSymbols, chars[5]) + padding;
-
+      const value = getSymbolChainValue(
+        clockSymbols,
+        [chars[0], chars[1], ':', chars[2], chars[3], ':', chars[4], chars[5]],
+        3,
+        x - baseX,
+        y - baseY
+      );
       return value > 0 ? color : prevColor;
     },
     update() {
