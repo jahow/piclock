@@ -1,5 +1,5 @@
-const CELL_SIZE = 6;
-const CELL_GUTTER = 4;
+const CELL_SIZE = 7;
+const CELL_GUTTER = 2;
 
 const SCREEN_WIDTH = 800;
 const SCREEN_HEIGHT = 480;
@@ -127,7 +127,7 @@ function render() {
     }
   }
 
-  ctx.globalAlpha = 0.2;
+  ctx.globalAlpha = 0.15;
   ctx.drawImage(canvas, 2, 2, canvas.width, canvas.height);
   ctx.drawImage(canvas, -2, 2, canvas.width, canvas.height);
   ctx.drawImage(canvas, -2, -2, canvas.width, canvas.height);
