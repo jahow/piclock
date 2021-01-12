@@ -77,11 +77,23 @@ function render() {
 
   // draw grid
   for (let i = 0; i < rowCount; i++) {
+    // background stripe
+    ctx.fillStyle = colors[0];
+    ctx.fillRect(
+      0,
+      i * (CELL_SIZE + CELL_GUTTER) + CELL_GUTTER + CELL_SIZE * 0.25,
+      canvas.width,
+      CELL_SIZE * 0.5
+    );
+
     for (let j = 0; j < colCount; j++) {
       const gridCell = grid[j + i * colCount];
 
+      if (gridCell.frontColor === 0) continue;
+
       ctx.strokeStyle = colors[gridCell.frontColor];
-      ctx.lineWidth = gridCell.frontColor === 0 ? CELL_SIZE * 0.5 : CELL_SIZE;
+      ctx.lineWidth = CELL_SIZE;
+      ctx.lineCap = 'round';
 
       const x = j * (CELL_SIZE + CELL_GUTTER) + CELL_GUTTER;
       const y = i * (CELL_SIZE + CELL_GUTTER) + CELL_GUTTER + CELL_SIZE / 2;
@@ -97,11 +109,11 @@ function render() {
         extraCells++;
       }
       const width = CELL_SIZE + extraCells * (CELL_SIZE + CELL_GUTTER);
+      const shift = CELL_SIZE * 0.5;
 
       ctx.beginPath();
-      ctx.moveTo(x + 0.5, y);
-      ctx.lineTo(x + width - 0.5, y);
-      ctx.closePath();
+      ctx.moveTo(x + shift, y);
+      ctx.lineTo(x + width - shift, y);
       ctx.stroke();
     }
   }
