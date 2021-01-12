@@ -16,4 +16,4 @@ addWidget(testWidget(52, 45, 20, 2));
 addWidget(clockWidget(2, 2, 3));
 
 addWidget(textWidget(2, 20, 'hello world!', 2));
-addWidget(textWidget(2, 30, 'temp. good?', 3));
+addWidget(textWidget(2, 30, 'temp. good?', 1, 3));

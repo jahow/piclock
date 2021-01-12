@@ -6,9 +6,10 @@ import { textSymbols } from './utils/symbols.definitions';
  * @param {number} baseY
  * @param {string} text
  * @param {number} color
+ * @param {number} [outlineColor]
  * @return {Widget}
  */
-export function textWidget(baseX, baseY, text, color) {
+export function textWidget(baseX, baseY, text, color, outlineColor) {
   const chars = text.toUpperCase().split('');
 
   return {
@@ -20,7 +21,66 @@ export function textWidget(baseX, baseY, text, color) {
         x - baseX,
         y - baseY
       );
-      return value > 0 ? color : prevColor;
+      const outlineValue =
+        outlineColor !== undefined
+          ? getSymbolChainValue(
+              textSymbols,
+              chars,
+              1,
+              x - baseX - 1,
+              y - baseY
+            ) +
+            getSymbolChainValue(
+              textSymbols,
+              chars,
+              1,
+              x - baseX + 1,
+              y - baseY
+            ) +
+            getSymbolChainValue(
+              textSymbols,
+              chars,
+              1,
+              x - baseX,
+              y - baseY - 1
+            ) +
+            getSymbolChainValue(
+              textSymbols,
+              chars,
+              1,
+              x - baseX,
+              y - baseY + 1
+            ) +
+            getSymbolChainValue(
+              textSymbols,
+              chars,
+              1,
+              x - baseX - 1,
+              y - baseY - 1
+            ) +
+            getSymbolChainValue(
+              textSymbols,
+              chars,
+              1,
+              x - baseX + 1,
+              y - baseY - 1
+            ) +
+            getSymbolChainValue(
+              textSymbols,
+              chars,
+              1,
+              x - baseX + 1,
+              y - baseY + 1
+            ) +
+            getSymbolChainValue(
+              textSymbols,
+              chars,
+              1,
+              x - baseX - 1,
+              y - baseY + 1
+            )
+          : 0;
+      return value > 0 ? color : outlineValue > 0 ? outlineColor : prevColor;
     },
     update() {},
   };
