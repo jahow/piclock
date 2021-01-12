@@ -1,3 +1,5 @@
+const DEBUG = true;
+
 /**
  * @param {SymbolSet} set
  * @param {string} key
@@ -5,7 +7,7 @@
  */
 export function getSymbolWidth(set, key) {
   // missing symbol: return checker pattern
-  if (!key in set.symbols) {
+  if (DEBUG && !key in set.symbols) {
     Math.ceil(set.height / 2);
   }
   return set.symbols[key][0];
@@ -26,7 +28,7 @@ export function getSymbolValue(set, key, col, row) {
   }
 
   // missing symbol: return checker pattern
-  if (!key in set.symbols) {
+  if (DEBUG && !key in set.symbols) {
     return (col % 2 === 0 && row % 2 === 0) || (col % 2 === 1 && row % 2 === 1)
       ? 1
       : 0;
