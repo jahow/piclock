@@ -124,15 +124,14 @@ function render() {
       ctx.moveTo(x + shift, y);
       ctx.lineTo(x + width - shift, y);
       ctx.stroke();
-
-      // ctx.lineWidth = CELL_SIZE + 4;
-      // ctx.globalAlpha = 0.3;
-      // ctx.beginPath();
-      // ctx.moveTo(x + shift, y);
-      // ctx.lineTo(x + width - shift, y);
-      // ctx.stroke();
     }
   }
+
+  ctx.globalAlpha = 0.2;
+  ctx.drawImage(canvas, 2, 2, canvas.width, canvas.height);
+  ctx.drawImage(canvas, -2, 2, canvas.width, canvas.height);
+  ctx.drawImage(canvas, -2, -2, canvas.width, canvas.height);
+  ctx.drawImage(canvas, 2, -2, canvas.width, canvas.height);
 
   requestAnimationFrame(render);
 }
