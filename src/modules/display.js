@@ -13,7 +13,7 @@ canvas.height = rowCount * CELL_SIZE + (rowCount + 1) * CELL_GUTTER;
 
 document.body.appendChild(canvas);
 
-const colors = ['#2c2c2c', '#FF2222', '#22FF22', '#FFFF22'];
+const colors = ['#33135C', '#FFD300', '#DE38C8', '#652EC7'];
 
 // each cell holds an object containing: current color, target color, transition from back to front (0-1)
 const grid = new Array(colCount * rowCount).fill(0).map(() => ({
@@ -47,8 +47,6 @@ function render() {
   }
 
   const ctx = /** @type {CanvasRenderingContext2D} */ canvas.getContext('2d');
-  ctx.fillStyle = '#1f1f1f';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // update colors
   for (let i = 0; i < rowCount; i++) {
@@ -75,9 +73,16 @@ function render() {
     }
   }
 
-  // draw grid
-  for (let i = 0; i < rowCount; i++) {
-    // background stripe
+  // draw striped bg
+  ctx.globalAlpha = 0.2;
+  for (let i = 0; i <= rowCount; i++) {
+    ctx.fillStyle = 'black';
+    ctx.fillRect(
+      0,
+      i * (CELL_SIZE + CELL_GUTTER) - CELL_SIZE * 0.25,
+      canvas.width,
+      CELL_SIZE * 0.5 + CELL_GUTTER
+    );
     ctx.fillStyle = colors[0];
     ctx.fillRect(
       0,
@@ -85,15 +90,19 @@ function render() {
       canvas.width,
       CELL_SIZE * 0.5
     );
+  }
 
+  // draw grid
+  ctx.lineCap = 'round';
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = CELL_SIZE;
+  for (let i = 0; i < rowCount; i++) {
     for (let j = 0; j < colCount; j++) {
       const gridCell = grid[j + i * colCount];
 
       if (gridCell.frontColor === 0) continue;
 
       ctx.strokeStyle = colors[gridCell.frontColor];
-      ctx.lineWidth = CELL_SIZE;
-      ctx.lineCap = 'round';
 
       const x = j * (CELL_SIZE + CELL_GUTTER) + CELL_GUTTER;
       const y = i * (CELL_SIZE + CELL_GUTTER) + CELL_GUTTER + CELL_SIZE / 2;
@@ -115,6 +124,13 @@ function render() {
       ctx.moveTo(x + shift, y);
       ctx.lineTo(x + width - shift, y);
       ctx.stroke();
+
+      // ctx.lineWidth = CELL_SIZE + 4;
+      // ctx.globalAlpha = 0.3;
+      // ctx.beginPath();
+      // ctx.moveTo(x + shift, y);
+      // ctx.lineTo(x + width - shift, y);
+      // ctx.stroke();
     }
   }
 
