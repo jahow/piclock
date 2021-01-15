@@ -14,7 +14,7 @@ export function clockWidget(baseX, baseY, color) {
     render(x, y, prevColor) {
       const value = getSymbolChainValue(
         clockSymbols,
-        [chars[0], chars[1], ':', chars[2], chars[3], ':', chars[4], chars[5]],
+        [chars[0], chars[1], ':', chars[2], chars[3]],
         3,
         x - baseX,
         y - baseY

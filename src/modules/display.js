@@ -1,4 +1,4 @@
-const CELL_SIZE = 7;
+const CELL_SIZE = 8;
 const CELL_GUTTER = 2;
 
 const SCREEN_WIDTH = 800;
