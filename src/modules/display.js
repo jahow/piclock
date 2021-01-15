@@ -13,6 +13,13 @@ canvas.height = rowCount * CELL_SIZE + (rowCount + 1) * CELL_GUTTER;
 
 document.body.appendChild(canvas);
 
+const fps = document.createElement('div');
+fps.style.backgroundColor = 'black';
+fps.style.color = 'white';
+fps.style.fontFamily = 'monospace';
+
+document.body.appendChild(fps);
+
 const colors = ['#33135C', '#FFD300', '#DE38C8', '#652EC7'];
 
 // each cell holds an object containing: current color, target color, transition from back to front (0-1)
@@ -132,6 +139,9 @@ function render() {
   ctx.drawImage(canvas, -2, 2, canvas.width, canvas.height);
   ctx.drawImage(canvas, -2, -2, canvas.width, canvas.height);
   ctx.drawImage(canvas, 2, -2, canvas.width, canvas.height);
+
+  // update fps
+  fps.innerText = Math.round(1000 / delta).toFixed(0) + ' FPS';
 
   requestAnimationFrame(render);
 }
