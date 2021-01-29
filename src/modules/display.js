@@ -1,4 +1,4 @@
-const CELL_SIZE = 8;
+const CELL_SIZE = 10;
 const CELL_GUTTER = 2;
 
 const SCREEN_WIDTH = 800;
@@ -62,6 +62,21 @@ function render() {
 
       // use clear color by default
       let newColor = 0;
+
+      // debug: show borders
+      // if (
+      //   i === 1 ||
+      //   i === 3 ||
+      //   i === rowCount - 2 ||
+      //   i === rowCount - 4 ||
+      //   j === 1 ||
+      //   j === 3 ||
+      //   j === colCount - 2 ||
+      //   j === colCount - 4
+      // ) {
+      //   newColor = 3;
+      // }
+
       for (let k = 0; k < widgets.length; k++) {
         newColor = widgets[k].render(j, i, newColor);
       }
@@ -82,22 +97,24 @@ function render() {
 
   // draw striped bg
   ctx.globalAlpha = 0.2;
-  for (let i = 0; i <= rowCount; i++) {
-    ctx.fillStyle = 'black';
-    ctx.fillRect(
-      0,
-      i * (CELL_SIZE + CELL_GUTTER) - CELL_SIZE * 0.25,
-      canvas.width,
-      CELL_SIZE * 0.5 + CELL_GUTTER
-    );
-    ctx.fillStyle = colors[0];
-    ctx.fillRect(
-      0,
-      i * (CELL_SIZE + CELL_GUTTER) + CELL_GUTTER + CELL_SIZE * 0.25,
-      canvas.width,
-      CELL_SIZE * 0.5
-    );
-  }
+  ctx.fillStyle = 'black';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // for (let i = 0; i <= rowCount; i++) {
+  //   ctx.fillStyle = 'black';
+  //   ctx.fillRect(
+  //     0,
+  //     i * (CELL_SIZE + CELL_GUTTER) - CELL_SIZE * 0.25,
+  //     canvas.width,
+  //     CELL_SIZE * 0.5 + CELL_GUTTER
+  //   );
+  //   ctx.fillStyle = colors[0];
+  //   ctx.fillRect(
+  //     0,
+  //     i * (CELL_SIZE + CELL_GUTTER) + CELL_GUTTER + CELL_SIZE * 0.25,
+  //     canvas.width,
+  //     CELL_SIZE * 0.5
+  //   );
+  // }
 
   // draw grid
   ctx.lineCap = 'round';
@@ -110,27 +127,29 @@ function render() {
       if (gridCell.frontColor === 0) continue;
 
       ctx.strokeStyle = colors[gridCell.frontColor];
+      ctx.fillStyle = colors[gridCell.frontColor];
 
       const x = j * (CELL_SIZE + CELL_GUTTER) + CELL_GUTTER;
       const y = i * (CELL_SIZE + CELL_GUTTER) + CELL_GUTTER + CELL_SIZE / 2;
 
       // check for similar neighboring cells
       let extraCells = 0;
-      for (let k = j + 1; k < colCount; k++) {
-        const nextGridCell = grid[k + i * colCount];
-        if (nextGridCell.frontColor !== gridCell.frontColor) {
-          break;
-        }
-        j++;
-        extraCells++;
-      }
+      // for (let k = j + 1; k < colCount; k++) {
+      //   const nextGridCell = grid[k + i * colCount];
+      //   if (nextGridCell.frontColor !== gridCell.frontColor) {
+      //     break;
+      //   }
+      //   j++;
+      //   extraCells++;
+      // }
       const width = CELL_SIZE + extraCells * (CELL_SIZE + CELL_GUTTER);
       const shift = CELL_SIZE * 0.5;
 
-      ctx.beginPath();
-      ctx.moveTo(x + shift, y);
-      ctx.lineTo(x + width - shift, y);
-      ctx.stroke();
+      // ctx.beginPath();
+      // ctx.moveTo(x + shift, y);
+      // ctx.lineTo(x + width - shift, y);
+      // ctx.stroke();
+      ctx.fillRect(x + shift, y, CELL_SIZE, CELL_SIZE);
     }
   }
 
