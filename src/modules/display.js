@@ -20,7 +20,7 @@ fps.style.fontFamily = 'monospace';
 
 document.body.appendChild(fps);
 
-const colors = ['#33135C', '#FFD300', '#DE38C8', '#652EC7'];
+const colors = ['#1d0a35', '#F5D300', '#09FBD3', '#440BD4'];
 
 // each cell holds an object containing: current color, target color, transition from back to front (0-1)
 const grid = new Array(colCount * rowCount).fill(0).map(() => ({
@@ -149,7 +149,7 @@ function render() {
       // ctx.moveTo(x + shift, y);
       // ctx.lineTo(x + width - shift, y);
       // ctx.stroke();
-      ctx.fillRect(x + shift, y, CELL_SIZE, CELL_SIZE);
+      ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
     }
   }
 
