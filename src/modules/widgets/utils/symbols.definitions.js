@@ -679,7 +679,7 @@ export const weatherSymbols = {
     ]),
     ['rain+']: processSymbol([
       '       ',
-      '  x    ',
+      '  x  x ',
       ' x  x  ',
       'x  x  x',
       '  x  x ',

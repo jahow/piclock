@@ -57,3 +57,19 @@ export function getSymbolChainValue(set, keys, padding, col, row) {
 
   return value;
 }
+
+/**
+ * @param {SymbolSet} set
+ * @param {string[]} keys
+ * @param {number} padding
+ * @return {number}
+ */
+export function getSymbolChainWidth(set, keys, padding) {
+  let width = 0;
+
+  for (let i = 0, ii = keys.length; i < ii; i++) {
+    width += getSymbolWidth(set, keys[i]) + padding;
+  }
+
+  return width;
+}
