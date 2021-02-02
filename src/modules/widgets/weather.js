@@ -73,8 +73,6 @@ export function weatherWidget(baseX, baseY, color) {
       )
         .then((resp) => resp.json())
         .then((resp) => {
-          console.log(resp);
-
           const date = new Date();
           date.setUTCHours(12);
           date.setMinutes(0);
@@ -87,7 +85,6 @@ export function weatherWidget(baseX, baseY, color) {
               const item = resp.list[i];
 
               if (item.dt === date.getTime() / 1000) {
-                console.log('matched on item', item);
                 const temp = Math.round(item.main.temp - 273.15);
                 const icon = item.weather[0].icon.substring(0, 2);
                 forecasts[j] = ['missing', temp];
